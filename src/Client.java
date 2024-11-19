@@ -6,7 +6,16 @@ import java.net.Socket;
 
 public class Client extends Thread {
     public static final int PUERTO = 2024;
-    public static final String IP_SERVER = "localhost";
+    public static final String IP_SERVER = "10.34.122.80";
+    private String opt;
+
+    public void setOpt(String opt) {
+        this.opt = opt;
+    }
+
+    public String getOpt() {
+        return opt;
+    }
 
     public void run() {
         System.out.println("        CLIENT APP         ");
@@ -18,7 +27,7 @@ public class Client extends Thread {
 //            String pwd = bf.readLine();
 //            bf.read();
             socket.connect(ip);
-            String opt = bf.readLine();
+            String opt = getOpt();
             InputStreamReader input = new InputStreamReader(socket.getInputStream());
             BufferedReader br = new BufferedReader(input);
             System.out.println("CLIENT: Waiting response from server...");

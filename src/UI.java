@@ -17,6 +17,7 @@ public class UI extends JDialog {
     private JButton piedraButton;
     private JButton papelButton;
     private JButton tijeraButton;
+    private Client client;
 
     public UI() {
         setContentPane(contentPane);
@@ -50,8 +51,7 @@ public class UI extends JDialog {
 
                 menuPane.setVisible(false);
                 //searchingPane.setVisible(true);
-
-                Client client = new Client();
+                client = new Client();
                 client.start();
             }
         });
@@ -59,18 +59,21 @@ public class UI extends JDialog {
         piedraButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                client.setOpt("ROCK");
                 System.out.println("Rock");
             }
         });
         papelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                client.setOpt("PAPER");
                 System.out.println("Paper");
             }
         });
         tijeraButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                client.setOpt("SCISSORS");
                 System.out.println("Scissors");
             }
         });
