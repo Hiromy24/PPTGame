@@ -40,11 +40,14 @@ public class Game extends Thread {
             output2.println("Player 2: " + player2Choice);
 
             if (player1Choice.equals(player2Choice)) {
-                System.out.println("It's a tie!");
+                output1.println("It's a tie!");
+                output2.println("It's a tie!");
             } else if (winningConditions.get(player1Choice).equals(player2Choice)) {
-                System.out.println("Player 1 wins");
+                output1.println("Player 1 wins");
+                output2.println("Player 1 wins");
             } else {
-                System.out.println("Player 2 wins");
+                output1.println("Player 2 wins");
+                output2.println("Player 2 wins");
             }
 
             socketToPlayer1.close();
