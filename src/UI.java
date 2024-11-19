@@ -41,6 +41,25 @@ public class UI extends JDialog {
         exitButton.setSize(300,150);
         exitButton.setFocusPainted(false);
 
+        ImageIcon iconRock = new ImageIcon("src/img/Rock.png");
+        Image imgRock = iconRock.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        piedraButton.setIcon(new ImageIcon(imgRock));
+
+        ImageIcon iconTijera = new ImageIcon("src/img/Scissors.png");
+        Image imgTijera = iconTijera.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        tijeraButton.setIcon(new ImageIcon(imgTijera));
+
+        ImageIcon iconPapel = new ImageIcon("src/img/Paper.png");
+        Image imgPapel = iconPapel.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        papelButton.setIcon(new ImageIcon(imgPapel));
+
+
+        piedraButton.setBackground(Color.decode("#FCBA03"));
+        tijeraButton.setBackground(Color.decode("#FCBA03"));
+        papelButton.setBackground(Color.decode("#FCBA03"));
+
+
+
         playButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
@@ -50,6 +69,7 @@ public class UI extends JDialog {
                 exitButton.setEnabled(false);
 
                 menuPane.setVisible(false);
+                gamePane.setVisible(true);
                 //searchingPane.setVisible(true);
                 client = new Client();
                 client.start();
@@ -84,5 +104,13 @@ public class UI extends JDialog {
         dialog.pack();
         dialog.setVisible(true);
         System.exit(0);
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+        piedraButton = new RoundedButton("", 50);
+        tijeraButton = new RoundedButton("", 50);
+        papelButton = new RoundedButton("", 50);
+
     }
 }

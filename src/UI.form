@@ -28,6 +28,7 @@
             </constraints>
             <properties>
               <text value="PIEDRA PAPEL O TIJERAS "/>
+              <visible value="true"/>
             </properties>
           </component>
           <grid id="2bb0" binding="menuPane" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -37,6 +38,7 @@
             </constraints>
             <properties>
               <background color="-9802323"/>
+              <visible value="false"/>
             </properties>
             <border type="none"/>
             <children>
@@ -91,42 +93,52 @@
               </component>
             </children>
           </grid>
-          <grid id="3e06b" binding="gamePane" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="3e06b" binding="gamePane" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties/>
+            <properties>
+              <background color="-9802323"/>
+              <visible value="true"/>
+            </properties>
             <border type="none"/>
             <children>
-              <component id="a56ab" class="javax.swing.JButton" binding="piedraButton">
+              <component id="a56ab" class="javax.swing.JButton" binding="piedraButton" custom-create="true">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                    <maximum-size width="400" height="-1"/>
+                    <maximum-size width="220" height="220"/>
                   </grid>
                 </constraints>
                 <properties>
-                  <text value="piedra"/>
+                  <background color="-214525"/>
+                  <borderPainted value="true"/>
+                  <maximumSize width="200" height="200"/>
+                  <minimumSize width="200" height="200"/>
+                  <text value=""/>
                 </properties>
               </component>
-              <component id="b8650" class="javax.swing.JButton" binding="papelButton">
+              <component id="b8650" class="javax.swing.JButton" binding="papelButton" custom-create="true">
                 <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                    <maximum-size width="400" height="-1"/>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                    <maximum-size width="220" height="220"/>
                   </grid>
                 </constraints>
                 <properties>
-                  <text value="papel"/>
+                  <background color="-214525"/>
+                  <text value=""/>
                 </properties>
               </component>
-              <component id="21df" class="javax.swing.JButton" binding="tijeraButton">
+              <component id="21df" class="javax.swing.JButton" binding="tijeraButton" custom-create="true">
                 <constraints>
-                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                    <maximum-size width="400" height="-1"/>
+                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                    <maximum-size width="220" height="220"/>
                   </grid>
                 </constraints>
                 <properties>
-                  <text value="tijera"/>
+                  <background color="-214525"/>
+                  <text value=""/>
+                  <visible value="true"/>
                 </properties>
               </component>
             </children>
