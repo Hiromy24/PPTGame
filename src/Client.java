@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
@@ -27,7 +28,8 @@ public class Client extends Thread {
 //            String pwd = bf.readLine();
 //            bf.read();
             socket.connect(ip);
-            String opt = getOpt();
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            out.println(getOpt());
             InputStreamReader input = new InputStreamReader(socket.getInputStream());
             BufferedReader br = new BufferedReader(input);
             System.out.println("CLIENT: Waiting response from server...");
