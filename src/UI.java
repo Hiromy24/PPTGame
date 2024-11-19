@@ -37,9 +37,7 @@ public class UI extends JDialog {
             gameTitle.setText("No se pudo cargar la fuente.");
         }
         playButton.setSize(300,150);
-        playButton.setFocusPainted(false);
         exitButton.setSize(300,150);
-        exitButton.setFocusPainted(false);
 
         ImageIcon iconRock = new ImageIcon("src/img/Rock.png");
         Image imgRock = iconRock.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
@@ -108,6 +106,8 @@ public class UI extends JDialog {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
+        playButton = new RoundedButton("Jugar", 30);
+        exitButton = new RoundedButton("Salir", 30);
         piedraButton = new RoundedButton("", 50);
         tijeraButton = new RoundedButton("", 50);
         papelButton = new RoundedButton("", 50);
