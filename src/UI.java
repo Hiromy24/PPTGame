@@ -20,6 +20,7 @@ public class UI extends JDialog {
     private Client client;
 
     public UI() {
+        MusicManager musicManager = new MusicManager();
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(playButton);
@@ -55,7 +56,7 @@ public class UI extends JDialog {
         piedraButton.setBackground(Color.decode("#FCBA03"));
         tijeraButton.setBackground(Color.decode("#FCBA03"));
         papelButton.setBackground(Color.decode("#FCBA03"));
-
+        musicManager.playMusic("src/audioClips/Happy.wav");
 
 
         playButton.addActionListener(new ActionListener() {
