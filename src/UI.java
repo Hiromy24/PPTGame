@@ -25,6 +25,7 @@ public class UI extends JDialog {
     private JButton enemigoPiedraButton;
     private JButton enemigoPapelButton;
     private JButton enemigoTijeraButton;
+    private JPanel loadingPane;
     private Client client;
 
 
@@ -77,6 +78,7 @@ public class UI extends JDialog {
         enemigoPapelButton.setBackground(Color.decode("#FCBA03"));
         //endregion
         musicManager.playMusic("src/audioClips/Happy.wav");
+
 
 
         playButton.addActionListener(new ActionListener() {
@@ -212,5 +214,6 @@ public class UI extends JDialog {
         enemigoPiedraButton = new RoundedButton("",50);
         enemigoPapelButton = new RoundedButton("",50);
         enemigoTijeraButton = new RoundedButton("",50);
+        loadingPane = new LoadingCircle();
     }
 }
