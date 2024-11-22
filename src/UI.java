@@ -145,8 +145,8 @@ public class UI extends JDialog {
             case "Partida Encontrada!" -> {
                 searchingPane.setVisible(false);
                 gamePane.setVisible(true);
-                break;
-            case "Siguiente Ronda!":
+            }
+            case "Siguiente Ronda!" -> {
                 piedraButton.setVisible(true);
                 papelButton.setVisible(true);
                 tijeraButton.setVisible(true);
@@ -157,8 +157,8 @@ public class UI extends JDialog {
                 enemigoPiedraButton.setVisible(false);
                 enemigoPapelButton.setVisible(false);
                 enemigoTijeraButton.setVisible(false);
-                break;
-            case "Rock":
+            }
+            case "Rock" -> {
                 enemigoPiedraButton.setVisible(true);
                 if (piedraButton.isVisible()){
                     resultadoRondaLbl.setText("Es un empate!");
@@ -167,8 +167,8 @@ public class UI extends JDialog {
                 }else {
                     resultadoRondaLbl.setText("Perdiste la Ronda!");
                 }
-                break;
-            case "Paper":
+            }
+            case "Paper" -> {
                 enemigoPapelButton.setVisible(true);
                 if (piedraButton.isVisible()){
                     resultadoRondaLbl.setText("Perdiste la Ronda!");
@@ -177,8 +177,8 @@ public class UI extends JDialog {
                 }else {
                     resultadoRondaLbl.setText("Ganaste la Ronda!");
                 }
-                break;
-            case "Scissors":
+            }
+            case "Scissors" -> {
                 enemigoTijeraButton.setVisible(true);
                 if (piedraButton.isVisible()){
                     resultadoRondaLbl.setText("Ganaste la Ronda!");
@@ -187,7 +187,6 @@ public class UI extends JDialog {
                 }else {
                     resultadoRondaLbl.setText("Es un empate!");
                 }
-                break;
             }
             case "Partida Finalizada!" -> {
                 playButton.setVisible(true);

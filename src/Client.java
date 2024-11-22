@@ -68,7 +68,6 @@ public class Client extends Thread {
                     }
                     default -> System.out.println("CLIENT: ITS A TIE!");
                 }
-                rounds++;
                 sleep(5000);
                 userUI.UpdateSearching("Siguiente Ronda!");
             }
