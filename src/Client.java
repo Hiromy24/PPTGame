@@ -29,20 +29,38 @@ public class Client extends Thread {
             BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
             output = new PrintWriter(socket.getOutputStream(), true);
             System.out.println("CLIENT: Waiting response from server...");
-
-            boolean is_win = bf.readLine().equals("WIN");
-            if (is_win) {
-                System.out.println("CLIENT: YOU WIN!");
-            } else {
-                System.out.println("CLIENT: YOU LOSE!");
+            int rounds =0;
+            while (rounds != 3){
+                synchronized (this) {
+                    while (option == null) {
+                        try {
+                            wait(); // Espera hasta que una opción sea seleccionada
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                    output.println(option.trim()); // Envía la opción seleccionada al servidor
+                    option = null; // Limpia la opción seleccionada para la próxima ronda
+                }
+                String is_win = br.readLine();
+                if (is_win.equals("WIN")) {
+                    System.out.println("CLIENT: YOU WIN!");
+                } else if (is_win.equals("LOSE")) {
+                    System.out.println("CLIENT: YOU LOSE!");
+                }else {
+                    System.out.println("CLIENT: ITS A TIE!");
+                }
+                rounds++;
             }
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-    public void sendOption(String option) {
-        this.option = option;
-        output.println(option);
+    public void setOption(String option) {
+        synchronized (this) {
+            this.option = option;
+            notify();
+        }
     }
 }

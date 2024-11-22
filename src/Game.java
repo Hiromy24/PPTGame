@@ -34,23 +34,27 @@ public class Game extends Thread {
             BufferedReader bf2 = new BufferedReader(input2);
             PrintStream output2 = new PrintStream(socketToPlayer2.getOutputStream());
             //endregion
-            String player1Choice = bf1.readLine();
-            String player2Choice = bf2.readLine();
-
             //output1.println("Player 1: " + player1Choice);
             //output2.println("Player 2: " + player2Choice);
+            int rounds = 0;
+            while (rounds != 3){
+                String player1Choice = bf1.readLine();
+                String player2Choice = bf2.readLine();
 
             if (player1Choice.equals(player2Choice)) {
                 output1.println("It's a tie!");
                 output2.println("It's a tie!");
             } else if (winningConditions.get(player1Choice).equals(player2Choice)) {
-                output1.println("Player 1 wins");
-                output2.println("Player 1 wins");
+                output1.println("WIN");
+                output2.println("LOSE");
             } else {
-                output1.println("Player 2 wins");
-                output2.println("Player 2 wins");
+                output1.println("LOSE");
+                output2.println("WIN");
             }
-
+                output1.flush();
+                output2.flush();
+                rounds++;
+            }
             socketToPlayer1.close();
             socketToPlayer2.close();
         } catch (IOException e) {
