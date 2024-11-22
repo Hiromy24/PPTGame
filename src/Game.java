@@ -19,6 +19,8 @@ public class Game extends Thread {
     private BufferedReader bf2;
     private PrintStream output2;
     //endregion
+    private int player1Victories = 0;
+    private int player2Victories = 0;
     //region WinConditions
     private static final Map<String, String> winningConditions = new HashMap<>();
     static {
@@ -32,8 +34,7 @@ public class Game extends Thread {
     @Override
     public void run() {
         try {
-            int rounds = 0;
-            while (rounds != 3){
+            while (player1Victories < 3 && player2Victories < 3){
                 String player1Choice = bf1.readLine();
                 String player2Choice = bf2.readLine();
                 //region output1-2_Conditions
@@ -43,17 +44,19 @@ public class Game extends Thread {
                 } else if (winningConditions.get(player1Choice).equals(player2Choice)) {
                     output1.println("WIN");
                     output2.println("LOSE");
+                    player1Victories++;
                 } else {
                     output1.println("LOSE");
                     output2.println("WIN");
+                    player2Victories++;
                 }
-                //endregion
-                output1.flush();
-                output2.flush();
-                rounds++;
             }
             socketToPlayer1.close();
             socketToPlayer2.close();
+            output2.println("Partida Finalizada!");
+            output1.println("Partida Finalizada!");
+            output1.flush();
+            output2.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }

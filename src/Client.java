@@ -34,7 +34,7 @@ public class Client extends Thread {
 
             userUI.UpdateSearching(br.readLine());
             int rounds =0;
-            while (rounds != 3){
+            while (rounds != 5){
                 synchronized (this) {
                     while (option == null) {
                         try {
@@ -48,12 +48,20 @@ public class Client extends Thread {
                 }
 
                 String is_win = br.readLine();
-                if (is_win.equals("WIN")) {
-                    System.out.println("CLIENT: YOU WIN!");
-                } else if (is_win.equals("LOSE")) {
-                    System.out.println("CLIENT: YOU LOSE!");
-                }else {
-                    System.out.println("CLIENT: ITS A TIE!");
+                switch (is_win) {
+                    case "WIN" -> {
+                        System.out.println("CLIENT: YOU WIN!");
+                        userUI.UpdateSearching(br.readLine());
+                    }
+                    case "LOSE" -> {
+                        System.out.println("CLIENT: YOU LOSE!");
+                        userUI.UpdateSearching(br.readLine());
+                    }
+                    case "Partida Finalizada!" -> {
+                        System.out.println("CLIENT: ITS A TIE!");
+                        userUI.UpdateSearching(br.readLine());
+                    }
+                    default -> System.out.println("CLIENT: ITS A TIE!");
                 }
                 rounds++;
             }
