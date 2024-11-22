@@ -11,6 +11,7 @@ public class Client extends Thread {
     private PrintWriter output;
     private String option;
     private final UI userUI;
+    private boolean is_finished = false;
 
     public Client(UI actualUI) {
         userUI = actualUI;
@@ -22,8 +23,7 @@ public class Client extends Thread {
         System.out.println("-----------------------------------");
         //endregion
         InetSocketAddress connection = new InetSocketAddress(IP_SERVER, PUERTO);
-        try(Socket socket = new Socket()) {
-            //TODO: PSW
+        try (Socket socket = new Socket()) {
             socket.connect(connection);
             InputStreamReader input = new InputStreamReader(socket.getInputStream());
             BufferedReader br = new BufferedReader(input);
@@ -33,8 +33,7 @@ public class Client extends Thread {
             System.out.println("CLIENT: Waiting response from server...");
 
             userUI.UpdateSearching(br.readLine());
-            int rounds =0;
-            while (rounds != 5){
+            while (!is_finished) {
                 synchronized (this) {
                     while (option == null) {
                         try {
@@ -49,21 +48,15 @@ public class Client extends Thread {
 
                 String is_win = br.readLine();
                 switch (is_win) {
-                    case "WIN" -> {
-                        System.out.println("CLIENT: YOU WIN!");
-                        //userUI.UpdateSearching(br.readLine());
-                    }
-                    case "LOSE" -> {
-                        System.out.println("CLIENT: YOU LOSE!");
-                        //userUI.UpdateSearching(br.readLine());
-                    }
+                    case "WIN" -> System.out.println("CLIENT: YOU WIN!");
+                    case "LOSE" -> System.out.println("CLIENT: YOU LOSE!");
                     case "Partida Finalizada!" -> {
                         System.out.println("CLIENT: GAME FINISHED!");
-                        userUI.UpdateSearching(br.readLine());
+                        userUI.UpdateSearching("Partida Finalizada!");
+                        is_finished = true;
                     }
                     default -> System.out.println("CLIENT: ITS A TIE!");
                 }
-                rounds++;
             }
 
         } catch (IOException e) {

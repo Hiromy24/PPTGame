@@ -34,7 +34,7 @@ public class Game extends Thread {
     @Override
     public void run() {
         try {
-            while (player1Victories < 3 && player2Victories < 3){
+            while (player1Victories < 3 && player2Victories < 3) {
                 String player1Choice = bf1.readLine();
                 String player2Choice = bf2.readLine();
                 //region output1-2_Conditions
@@ -51,12 +51,12 @@ public class Game extends Thread {
                     player2Victories++;
                 }
             }
-            socketToPlayer1.close();
-            socketToPlayer2.close();
-            output2.println("Partida Finalizada!");
             output1.println("Partida Finalizada!");
+            output2.println("Partida Finalizada!");
             output1.flush();
             output2.flush();
+            socketToPlayer1.close();
+            socketToPlayer2.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

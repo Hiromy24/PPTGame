@@ -102,17 +102,17 @@ public class UI extends JDialog {
         //endregion
     }
 
-    public void UpdateSearching(String s){
-        switch (s){
-            case "Partida Encontrada!":
+    public void UpdateSearching(String s) {
+        switch (s) {
+            case "Partida Encontrada!" -> {
                 searchingPane.setVisible(false);
                 gamePane.setVisible(true);
-                break;
-            case "Partida Finalizada!":
+            }
+            case "Partida Finalizada!" -> {
                 searchingPane.setVisible(false);
                 gamePane.setVisible(false);
                 menuPane.setVisible(true);
-                break;
+            }
         }
     }
 
