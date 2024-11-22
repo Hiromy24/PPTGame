@@ -8,16 +8,20 @@ import java.io.IOException;
 public class UI extends JDialog {
     private final UI actualUI = this;
     private JPanel contentPane;
-    private JLabel gameTitle;
-    private JButton playButton;
-    private JButton exitButton;
-    private JLabel searchingLbl;
     private JPanel searchingPane;
     private JPanel menuPane;
     private JPanel gamePane;
+    private JPanel VeredictoPane;
+    private JLabel gameTitle;
+    private JLabel searchingLbl;
+    private JButton playButton;
+    private JButton exitButton;
     private JButton piedraButton;
     private JButton papelButton;
     private JButton tijeraButton;
+    private JLabel eleccionActualLbl;
+    private JLabel resultadoRondaLbl;
+    private JPanel botonesPane;
     private Client client;
 
     public UI() {
@@ -27,14 +31,17 @@ public class UI extends JDialog {
         getRootPane().setDefaultButton(playButton);
         //region FontsApplied
         try{
-            Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/Fonts/BlitzBold.otf"));
-            customFont = customFont.deriveFont(50f);
-
-
-            gameTitle.setFont(customFont);
-            playButton.setFont(customFont);
-            exitButton.setFont(customFont);
-            searchingLbl.setFont(customFont);
+            Font customFont50 = Font.createFont(Font.TRUETYPE_FONT, new File("src/Fonts/BlitzBold.otf"));
+            Font customFont35 = Font.createFont(Font.TRUETYPE_FONT, new File("src/Fonts/BlitzBold.otf"));
+            customFont50 = customFont50.deriveFont(50f);
+            customFont35 = customFont35.deriveFont(35f);
+            gameTitle.setFont(customFont50);
+            playButton.setFont(customFont50);
+            exitButton.setFont(customFont50);
+            searchingLbl.setFont(customFont50);
+            eleccionActualLbl.setFont(customFont50);
+            eleccionActualLbl.setFont(customFont35);
+            resultadoRondaLbl.setFont(customFont35);
         }catch (FontFormatException | IOException e) {
             e.printStackTrace();
             gameTitle.setText("No se pudo cargar la fuente.");
@@ -81,22 +88,37 @@ public class UI extends JDialog {
         piedraButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                client.setOption("Rock");
+                //client.setOption("Rock");
                 System.out.println("Rock");
+                eleccionActualLbl.setText("Eleccion Actual: Piedra");
+                tijeraButton.setVisible(false);
+                papelButton.setVisible(false);
+
+                piedraButton.setEnabled(false);
             }
         });
         papelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                client.setOption("Paper");
+                //client.setOption("Paper");
                 System.out.println("Paper");
+                eleccionActualLbl.setText("Eleccion Actual: Papel");
+                piedraButton.setVisible(false);
+                tijeraButton.setVisible(false);
+
+                papelButton.setEnabled(false);
             }
         });
         tijeraButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                client.setOption("Scissors");
+                //client.setOption("Scissors");
                 System.out.println("Scissors");
+                eleccionActualLbl.setText("Eleccion Actual: Tijeras");
+                piedraButton.setVisible(false);
+                papelButton.setVisible(false);
+
+                tijeraButton.setEnabled(false);
             }
         });
         //endregion
@@ -107,6 +129,15 @@ public class UI extends JDialog {
             case "Partida Encontrada!":
                 searchingPane.setVisible(false);
                 gamePane.setVisible(true);
+                break;
+            case "Siguiente Ronda!":
+                piedraButton.setVisible(true);
+                papelButton.setVisible(true);
+                tijeraButton.setVisible(true);
+                piedraButton.setEnabled(true);
+                papelButton.setEnabled(true);
+                tijeraButton.setEnabled(true);
+                break;
         }
     }
 

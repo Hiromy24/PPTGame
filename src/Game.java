@@ -33,7 +33,8 @@ public class Game extends Thread {
     public void run() {
         try {
             int rounds = 0;
-            while (rounds != 3){
+            int maxRounds = 5;
+            while (rounds != maxRounds){
                 String player1Choice = bf1.readLine();
                 String player2Choice = bf2.readLine();
                 //region output1-2_Conditions
