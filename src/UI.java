@@ -25,6 +25,7 @@ public class UI extends JDialog {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(playButton);
+        //region FontsApplied
         try{
             Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/Fonts/BlitzBold.otf"));
             customFont = customFont.deriveFont(50f);
@@ -38,9 +39,10 @@ public class UI extends JDialog {
             e.printStackTrace();
             gameTitle.setText("No se pudo cargar la fuente.");
         }
+        //endregion
         playButton.setSize(300,150);
         exitButton.setSize(300,150);
-
+        //region RockPaperScissorsButtons
         ImageIcon iconRock = new ImageIcon("src/img/Rock.png");
         Image imgRock = iconRock.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
         piedraButton.setIcon(new ImageIcon(imgRock));
@@ -53,10 +55,10 @@ public class UI extends JDialog {
         Image imgPapel = iconPapel.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
         papelButton.setIcon(new ImageIcon(imgPapel));
 
-
         piedraButton.setBackground(Color.decode("#FCBA03"));
         tijeraButton.setBackground(Color.decode("#FCBA03"));
         papelButton.setBackground(Color.decode("#FCBA03"));
+        //endregion
         musicManager.playMusic("src/audioClips/Happy.wav");
 
 
@@ -116,6 +118,7 @@ public class UI extends JDialog {
         System.exit(0);
     }
 
+    //Custom Components
     private void createUIComponents() {
         // TODO: place custom component creation code here
         playButton = new RoundedButton("Jugar", 30);
