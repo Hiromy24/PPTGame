@@ -1,3 +1,4 @@
+// src/Game.java
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,28 +8,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Game extends Thread {
-    //region Socket1_Definition
     private Socket socketToPlayer1;
     private InputStreamReader input1;
     private BufferedReader bf1;
     private PrintStream output1;
-    //endregion
-    //region Socket2_Definition
+
     private Socket socketToPlayer2;
     private InputStreamReader input2;
     private BufferedReader bf2;
     private PrintStream output2;
-    //endregion
+
     private int player1Victories = 0;
     private int player2Victories = 0;
-    //region WinConditions
+
     private static final Map<String, String> winningConditions = new HashMap<>();
     static {
         winningConditions.put("Rock", "Scissors");
         winningConditions.put("Paper", "Rock");
         winningConditions.put("Scissors", "Paper");
     }
-    //endregion
+
     public Game() {}
 
     @Override
@@ -37,7 +36,7 @@ public class Game extends Thread {
             while (player1Victories < 3 && player2Victories < 3) {
                 String player1Choice = bf1.readLine();
                 String player2Choice = bf2.readLine();
-                //region output1-2_Conditions
+
                 if (player1Choice.equals(player2Choice)) {
                     output1.println("It's a tie!");
                     output2.println("It's a tie!");
@@ -51,8 +50,8 @@ public class Game extends Thread {
                     player2Victories++;
                 }
             }
-            output2.println("Partida Finalizada!");
             output1.println("Partida Finalizada!");
+            output2.println("Partida Finalizada!");
             output1.flush();
             output2.flush();
             socketToPlayer1.close();
@@ -63,22 +62,23 @@ public class Game extends Thread {
     }
 
     public void addSocket(Socket socket) throws IOException {
-        if (socketToPlayer1 == null){
+        if (socketToPlayer1 == null) {
             socketToPlayer1 = socket;
-            input1 = new InputStreamReader(socketToPlayer1.getInputStream());
+            input1 = new InputStreamReader(socket.getInputStream());
             bf1 = new BufferedReader(input1);
-            output1 = new PrintStream(socketToPlayer1.getOutputStream());
-        }else {
+            output1 = new PrintStream(socket.getOutputStream());
+        } else {
             socketToPlayer2 = socket;
-            input2 = new InputStreamReader(socketToPlayer2.getInputStream());
+            input2 = new InputStreamReader(socket.getInputStream());
             bf2 = new BufferedReader(input2);
-            output2 = new PrintStream(socketToPlayer2.getOutputStream());
+            output2 = new PrintStream(socket.getOutputStream());
             output1.println("Partida Encontrada!");
             output2.println("Partida Encontrada!");
             output1.flush();
             output2.flush();
         }
     }
+
     public void closeSockets() {
         try {
             if (socketToPlayer1 != null && !socketToPlayer1.isClosed()) {

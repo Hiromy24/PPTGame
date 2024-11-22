@@ -55,7 +55,6 @@ public class Client extends Thread {
                         System.out.println("CLIENT: GAME FINISHED!");
                         userUI.UpdateSearching("Partida Finalizada!");
                         is_finished = true;
-                        socket.close();
                         resetGame();
                     }
                     default -> System.out.println("CLIENT: ITS A TIE!");
