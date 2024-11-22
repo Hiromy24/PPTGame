@@ -12,6 +12,7 @@ public class Client extends Thread {
     private String option;
     private final UI userUI;
     private boolean is_finished = false;
+    private int win = 0;
 
     public Client(UI actualUI) {
         userUI = actualUI;
@@ -34,7 +35,7 @@ public class Client extends Thread {
             System.out.println("CLIENT: Waiting response from server...");
 
             userUI.UpdateSearching(br.readLine());
-            while (!is_finished) {
+            while (!is_finished || win < 3) {
                 synchronized (this) {
                     while (option == null) {
                         try {
@@ -49,7 +50,10 @@ public class Client extends Thread {
 
                 String is_win = br.readLine();
                 switch (is_win) {
-                    case "WIN" -> System.out.println("CLIENT: YOU WIN!");
+                    case "WIN" -> {
+                        System.out.println("CLIENT: YOU WIN!");
+                        win++;
+                    }
                     case "LOSE" -> System.out.println("CLIENT: YOU LOSE!");
                     case "Partida Finalizada!" -> {
                         System.out.println("CLIENT: GAME FINISHED!");
