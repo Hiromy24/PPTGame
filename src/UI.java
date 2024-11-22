@@ -27,10 +27,10 @@ public class UI extends JDialog {
     private JButton enemigoTijeraButton;
     private JPanel loadingPane;
     private Client client;
-
+    private MusicManager musicManager;
 
     public UI() {
-        MusicManager musicManager = new MusicManager();
+        musicManager = new MusicManager();
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(playButton);
@@ -145,6 +145,8 @@ public class UI extends JDialog {
             case "Partida Encontrada!" -> {
                 searchingPane.setVisible(false);
                 gamePane.setVisible(true);
+                musicManager.stopMusic();
+                musicManager.playMusic("src/audioClips/Mystery.wav");
             }
             case "Siguiente Ronda!" -> {
                 piedraButton.setVisible(true);
@@ -196,6 +198,8 @@ public class UI extends JDialog {
                 menuPane.setVisible(true);
                 searchingPane.setVisible(false);
                 gamePane.setVisible(false);
+                musicManager.stopMusic();
+                musicManager.playMusic("src/audioClips/Happy.wav");
             }
         }
     }
