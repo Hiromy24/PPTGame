@@ -28,7 +28,6 @@ public class Client extends Thread {
 
             BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
             output = new PrintWriter(socket.getOutputStream(), true);
-
             System.out.println("CLIENT: Waiting response from server...");
 
             boolean is_win = bf.readLine().equals("WIN");
