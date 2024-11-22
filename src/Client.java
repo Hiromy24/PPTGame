@@ -23,7 +23,8 @@ public class Client extends Thread {
         System.out.println("-----------------------------------");
         //endregion
         InetSocketAddress connection = new InetSocketAddress(IP_SERVER, PUERTO);
-        try (Socket socket = new Socket()) {
+        try {
+            Socket socket = new Socket();
             socket.connect(connection);
             InputStreamReader input = new InputStreamReader(socket.getInputStream());
             BufferedReader br = new BufferedReader(input);
@@ -54,6 +55,7 @@ public class Client extends Thread {
                         System.out.println("CLIENT: GAME FINISHED!");
                         userUI.UpdateSearching("Partida Finalizada!");
                         is_finished = true;
+                        socket.close();
                     }
                     default -> System.out.println("CLIENT: ITS A TIE!");
                 }

@@ -7,8 +7,9 @@ import java.util.List;
 
 public class Server {
     public static final int PUERTO = 2024;
-    private static List<Game> games = new ArrayList<Game>();
-    public static int gameNumber = 0;
+    private static final List<Game> games = new ArrayList<>();
+    private static int gameNumber = 0;
+
     public static void main(String[] args) {
         System.out.println("            SERVER APP            ");
         System.out.println("----------------------------------");
@@ -19,20 +20,27 @@ public class Server {
             while (true) {
                 Game game = new Game();
                 System.out.println("SERVER: Waiting for request on port " + PUERTO);
-                Socket socketToPlayer1 = serverSocket.accept();
-                System.out.println("SERVER: Player 1 connected");
-                game.addSocket(socketToPlayer1);
+                try {
+                    Socket socketToPlayer1 = serverSocket.accept();
+                    System.out.println("SERVER: Player 1 connected");
+                    game.addSocket(socketToPlayer1);
 
-                Socket socketToPlayer2 = serverSocket.accept();
-                System.out.println("SERVER: Player 2 connected");
-                game.addSocket(socketToPlayer2);
+                    Socket socketToPlayer2 = serverSocket.accept();
+                    System.out.println("SERVER: Player 2 connected");
+                    game.addSocket(socketToPlayer2);
 
-                games.add(game);
-                games.get(gameNumber).start();
-                gameNumber++;
+                    synchronized (games) {
+                        games.add(game);
+                        game.start();
+                        gameNumber++;
+                    }
+                } catch (IOException e) {
+                    System.err.println("SERVER: Error handling player connection: " + e.getMessage());
+                    game.closeSockets();
+                }
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.err.println("SERVER: Error starting server: " + e.getMessage());
         }
     }
 }

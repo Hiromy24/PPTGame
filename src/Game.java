@@ -51,10 +51,7 @@ public class Game extends Thread {
                     player2Victories++;
                 }
             }
-<<<<<<< Updated upstream
-=======
             output2.println("Partida Finalizada!");
->>>>>>> Stashed changes
             output1.println("Partida Finalizada!");
             output2.println("Partida Finalizada!");
             output1.flush();
@@ -81,6 +78,18 @@ public class Game extends Thread {
             output2.println("Partida Encontrada!");
             output1.flush();
             output2.flush();
+        }
+    }
+    public void closeSockets() {
+        try {
+            if (socketToPlayer1 != null && !socketToPlayer1.isClosed()) {
+                socketToPlayer1.close();
+            }
+            if (socketToPlayer2 != null && !socketToPlayer2.isClosed()) {
+                socketToPlayer2.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
