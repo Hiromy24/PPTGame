@@ -35,7 +35,7 @@ public class Client extends Thread {
             System.out.println("CLIENT: Waiting response from server...");
 
             userUI.UpdateSearching(br.readLine());
-            while (!is_finished || win < 3) {
+            while (!is_finished && win < 3) {
                 synchronized (this) {
                     while (option == null) {
                         try {
@@ -57,7 +57,6 @@ public class Client extends Thread {
                     case "LOSE" -> System.out.println("CLIENT: YOU LOSE!");
                     case "Partida Finalizada!" -> {
                         System.out.println("CLIENT: GAME FINISHED!");
-                        userUI.UpdateSearching("Partida Finalizada!");
                         is_finished = true;
                         resetGame();
                         socket.close();
@@ -65,6 +64,7 @@ public class Client extends Thread {
                     default -> System.out.println("CLIENT: ITS A TIE!");
                 }
             }
+            userUI.UpdateSearching("Partida Finalizada!");
 
         } catch (IOException e) {
             throw new RuntimeException(e);

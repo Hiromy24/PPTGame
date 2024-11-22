@@ -33,7 +33,7 @@ public class Game extends Thread {
     @Override
     public void run() {
         try {
-            while (player1Victories < 3 && player2Victories < 3) {
+            while (player1Victories != 3 && player2Victories != 3) {
                 String player1Choice = bf1.readLine();
                 String player2Choice = bf2.readLine();
 
