@@ -109,9 +109,13 @@ public class UI extends JDialog {
                 gamePane.setVisible(true);
             }
             case "Partida Finalizada!" -> {
+                playButton.setVisible(true);
+                exitButton.setVisible(true);
+                playButton.setEnabled(true);
+                exitButton.setEnabled(true);
+                menuPane.setVisible(true);
                 searchingPane.setVisible(false);
                 gamePane.setVisible(false);
-                menuPane.setVisible(true);
             }
         }
     }

@@ -56,6 +56,7 @@ public class Client extends Thread {
                         userUI.UpdateSearching("Partida Finalizada!");
                         is_finished = true;
                         socket.close();
+                        resetGame();
                     }
                     default -> System.out.println("CLIENT: ITS A TIE!");
                 }
@@ -71,5 +72,10 @@ public class Client extends Thread {
             this.option = option;
             notify();
         }
+    }
+
+    private void resetGame() {
+        is_finished = false;
+        option = null;
     }
 }

@@ -53,7 +53,6 @@ public class Game extends Thread {
             }
             output2.println("Partida Finalizada!");
             output1.println("Partida Finalizada!");
-            output2.println("Partida Finalizada!");
             output1.flush();
             output2.flush();
             socketToPlayer1.close();
