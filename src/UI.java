@@ -24,6 +24,7 @@ public class UI extends JDialog {
     private JPanel botonesPane;
     private Client client;
 
+
     public UI() {
         MusicManager musicManager = new MusicManager();
         setContentPane(contentPane);
@@ -91,9 +92,9 @@ public class UI extends JDialog {
                 //client.setOption("Rock");
                 System.out.println("Rock");
                 eleccionActualLbl.setText("Eleccion Actual: Piedra");
+                setWaitingPlayer();
                 tijeraButton.setVisible(false);
                 papelButton.setVisible(false);
-
                 piedraButton.setEnabled(false);
             }
         });
@@ -103,9 +104,9 @@ public class UI extends JDialog {
                 //client.setOption("Paper");
                 System.out.println("Paper");
                 eleccionActualLbl.setText("Eleccion Actual: Papel");
+                setWaitingPlayer();
                 piedraButton.setVisible(false);
                 tijeraButton.setVisible(false);
-
                 papelButton.setEnabled(false);
             }
         });
@@ -115,9 +116,9 @@ public class UI extends JDialog {
                 //client.setOption("Scissors");
                 System.out.println("Scissors");
                 eleccionActualLbl.setText("Eleccion Actual: Tijeras");
+                setWaitingPlayer();
                 piedraButton.setVisible(false);
                 papelButton.setVisible(false);
-
                 tijeraButton.setEnabled(false);
             }
         });
@@ -141,6 +142,9 @@ public class UI extends JDialog {
         }
     }
 
+    public void setWaitingPlayer() {
+                resultadoRondaLbl.setText("Esperando al otro Jugador...");
+    }
     public static void main(String[] args){
 
         UI dialog = new UI();

@@ -47,6 +47,7 @@ public class Game extends Thread {
                 } else {
                     output1.println("LOSE");
                     output2.println("WIN");
+
                 }
                 //endregion
                 output1.flush();
