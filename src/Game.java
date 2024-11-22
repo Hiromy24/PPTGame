@@ -51,6 +51,10 @@ public class Game extends Thread {
                     player2Victories++;
                 }
             }
+<<<<<<< Updated upstream
+=======
+            output2.println("Partida Finalizada!");
+>>>>>>> Stashed changes
             output1.println("Partida Finalizada!");
             output2.println("Partida Finalizada!");
             output1.flush();
