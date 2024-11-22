@@ -51,14 +51,14 @@ public class Client extends Thread {
                 switch (is_win) {
                     case "WIN" -> {
                         System.out.println("CLIENT: YOU WIN!");
-                        userUI.UpdateSearching(br.readLine());
+                        //userUI.UpdateSearching(br.readLine());
                     }
                     case "LOSE" -> {
                         System.out.println("CLIENT: YOU LOSE!");
-                        userUI.UpdateSearching(br.readLine());
+                        //userUI.UpdateSearching(br.readLine());
                     }
                     case "Partida Finalizada!" -> {
-                        System.out.println("CLIENT: ITS A TIE!");
+                        System.out.println("CLIENT: GAME FINISHED!");
                         userUI.UpdateSearching(br.readLine());
                     }
                     default -> System.out.println("CLIENT: ITS A TIE!");

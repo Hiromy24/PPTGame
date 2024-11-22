@@ -109,6 +109,7 @@ public class UI extends JDialog {
                 gamePane.setVisible(true);
                 break;
             case "Partida Finalizada!":
+                searchingPane.setVisible(false);
                 gamePane.setVisible(false);
                 menuPane.setVisible(true);
                 break;
