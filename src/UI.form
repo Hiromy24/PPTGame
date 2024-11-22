@@ -39,7 +39,7 @@
             </constraints>
             <properties>
               <background color="-9802323"/>
-              <visible value="false"/>
+              <visible value="true"/>
             </properties>
             <border type="none"/>
             <children>
@@ -101,7 +101,7 @@
             </constraints>
             <properties>
               <background color="-9802323"/>
-              <visible value="true"/>
+              <visible value="false"/>
             </properties>
             <border type="none"/>
             <children>

@@ -48,6 +48,8 @@ public class Client extends Thread {
                     option = null;
                 }
 
+                String enemyOption = br.readLine();
+                userUI.UpdateSearching(enemyOption);
                 String is_win = br.readLine();
                 if (is_win.equals("WIN")) {
                     System.out.println("CLIENT: YOU WIN!");
@@ -57,10 +59,12 @@ public class Client extends Thread {
                     System.out.println("CLIENT: ITS A TIE!");
                 }
                 rounds++;
+                sleep(5000);
+                userUI.UpdateSearching("Siguiente Ronda!");
             }
 
 
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
     }

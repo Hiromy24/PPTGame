@@ -16,7 +16,7 @@ public class UI extends JDialog {
     private JLabel searchingLbl;
     private JButton playButton;
     private JButton exitButton;
-
+    private JPanel botonesPane;
     private JLabel eleccionActualLbl;
     private JLabel resultadoRondaLbl;
     private JButton piedraButton;
@@ -98,7 +98,7 @@ public class UI extends JDialog {
         piedraButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //client.setOption("Rock");
+                client.setOption("Rock");
                 System.out.println("Rock");
                 eleccionActualLbl.setText("Eleccion Actual: Piedra");
                 setWaitingPlayer();
@@ -112,22 +112,20 @@ public class UI extends JDialog {
         papelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //client.setOption("Paper");
+                client.setOption("Paper");
                 System.out.println("Paper");
                 eleccionActualLbl.setText("Eleccion Actual: Papel");
                 setWaitingPlayer();
                 piedraButton.setVisible(false);
                 tijeraButton.setVisible(false);
-
                 papelButton.setEnabled(false);
-
 
             }
         });
         tijeraButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //client.setOption("Scissors");
+                client.setOption("Scissors");
                 System.out.println("Scissors");
                 eleccionActualLbl.setText("Eleccion Actual: Tijeras");
                 setWaitingPlayer();
@@ -158,22 +156,35 @@ public class UI extends JDialog {
                 enemigoPapelButton.setVisible(false);
                 enemigoTijeraButton.setVisible(false);
                 break;
-            case "Mostrar Opciones":
-                piedraButton.setVerticalAlignment(SwingConstants.LEFT);
-                papelButton.setVerticalAlignment(SwingConstants.LEFT);
-                tijeraButton.setVerticalAlignment(SwingConstants.LEFT);
-                enemigoPiedraButton.setVerticalAlignment(SwingConstants.RIGHT);
-                enemigoPapelButton.setVerticalAlignment(SwingConstants.RIGHT);
-                enemigoTijeraButton.setVerticalAlignment(SwingConstants.RIGHT);
-                break;
-            case "Piedra Enemiga!":
+            case "Rock":
                 enemigoPiedraButton.setVisible(true);
+                if (piedraButton.isVisible()){
+                    resultadoRondaLbl.setText("Es un empate!");
+                }else if (papelButton.isVisible()){
+                    resultadoRondaLbl.setText("Ganaste la Ronda!");
+                }else {
+                    resultadoRondaLbl.setText("Perdiste la Ronda!");
+                }
                 break;
-            case "Papel Enemigo!":
+            case "Paper":
                 enemigoPapelButton.setVisible(true);
+                if (piedraButton.isVisible()){
+                    resultadoRondaLbl.setText("Perdiste la Ronda!");
+                }else if (papelButton.isVisible()){
+                    resultadoRondaLbl.setText("Es un empate!");
+                }else {
+                    resultadoRondaLbl.setText("Ganaste la Ronda!");
+                }
                 break;
-            case "Tijera Enemiga!":
+            case "Scissors":
                 enemigoTijeraButton.setVisible(true);
+                if (piedraButton.isVisible()){
+                    resultadoRondaLbl.setText("Ganaste la Ronda!");
+                }else if (papelButton.isVisible()){
+                    resultadoRondaLbl.setText("Perdiste la Ronda!");
+                }else {
+                    resultadoRondaLbl.setText("Es un empate!");
+                }
                 break;
         }
     }

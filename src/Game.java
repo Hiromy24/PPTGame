@@ -38,6 +38,8 @@ public class Game extends Thread {
                 String player1Choice = bf1.readLine();
                 String player2Choice = bf2.readLine();
                 //region output1-2_Conditions
+                output1.println(player2Choice);
+                output2.println(player1Choice);
                 if (player1Choice.equals(player2Choice)) {
                     output1.println("It's a tie!");
                     output2.println("It's a tie!");
