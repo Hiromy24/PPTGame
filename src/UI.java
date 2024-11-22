@@ -78,21 +78,21 @@ public class UI extends JDialog {
         piedraButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                client.setOpt("ROCK");
+                client.setOption("ROCK");
                 System.out.println("Rock");
             }
         });
         papelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                client.setOpt("PAPER");
+                client.setOption("PAPER");
                 System.out.println("Paper");
             }
         });
         tijeraButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                client.setOpt("SCISSORS");
+                client.setOption("SCISSORS");
                 System.out.println("Scissors");
             }
         });

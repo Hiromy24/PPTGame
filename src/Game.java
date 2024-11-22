@@ -7,10 +7,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Game extends Thread {
-    private Socket socketToPlayer1;
-    private Socket socketToPlayer2;
+    private final Socket socketToPlayer1;
+    private final Socket socketToPlayer2;
     private static final Map<String, String> winningConditions = new HashMap<>();
-
+    //WinConditions
     static {
         winningConditions.put("Rock", "Scissors");
         winningConditions.put("Paper", "Rock");
@@ -25,6 +25,7 @@ public class Game extends Thread {
     @Override
     public void run() {
         try {
+            //region inputOutputBfr
             InputStreamReader input1 = new InputStreamReader(socketToPlayer1.getInputStream());
             BufferedReader bf1 = new BufferedReader(input1);
             PrintStream output1 = new PrintStream(socketToPlayer1.getOutputStream());
@@ -32,7 +33,7 @@ public class Game extends Thread {
             InputStreamReader input2 = new InputStreamReader(socketToPlayer2.getInputStream());
             BufferedReader bf2 = new BufferedReader(input2);
             PrintStream output2 = new PrintStream(socketToPlayer2.getOutputStream());
-
+            //endregion
             String player1Choice = bf1.readLine();
             String player2Choice = bf2.readLine();
 
