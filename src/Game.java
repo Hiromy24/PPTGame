@@ -54,8 +54,6 @@ public class Game extends Thread {
             output2.println("Partida Finalizada!");
             output1.flush();
             output2.flush();
-            socketToPlayer1.close();
-            socketToPlayer2.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

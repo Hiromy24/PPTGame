@@ -6,7 +6,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 
 public class Client extends Thread {
-    public static final String IP_SERVER = "localhost";
+    public static final String IP_SERVER = "10.34.125.247";
     public static final int PUERTO = 2024;
     private PrintWriter output;
     private String option;
@@ -56,6 +56,7 @@ public class Client extends Thread {
                         userUI.UpdateSearching("Partida Finalizada!");
                         is_finished = true;
                         resetGame();
+                        socket.close();
                     }
                     default -> System.out.println("CLIENT: ITS A TIE!");
                 }
