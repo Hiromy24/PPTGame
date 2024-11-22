@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="PPTGame:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/PPTGame_jar</output-path>
+    <root id="archive" name="PPTGame.jar">
+      <element id="module-output" name="PPTGame" />
+    </root>
+  </artifact>
+</component>
