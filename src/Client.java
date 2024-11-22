@@ -8,10 +8,12 @@ import java.net.Socket;
 public class Client extends Thread {
     public static final String IP_SERVER = "localhost";
     public static final int PUERTO = 2024;
-    private String option;
     private PrintWriter output;
-    public String getOption() {
-        return option;
+    private String option;
+    private final UI userUI;
+
+    public Client(UI actualUI) {
+        userUI = actualUI;
     }
 
     public void run() {
@@ -29,19 +31,22 @@ public class Client extends Thread {
             BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
             output = new PrintWriter(socket.getOutputStream(), true);
             System.out.println("CLIENT: Waiting response from server...");
+
+            userUI.UpdateSearching(br.readLine());
             int rounds =0;
             while (rounds != 3){
                 synchronized (this) {
                     while (option == null) {
                         try {
-                            wait(); // Espera hasta que una opción sea seleccionada
+                            wait();
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }
                     }
-                    output.println(option.trim()); // Envía la opción seleccionada al servidor
-                    option = null; // Limpia la opción seleccionada para la próxima ronda
+                    output.println(option.trim());
+                    option = null;
                 }
+
                 String is_win = br.readLine();
                 if (is_win.equals("WIN")) {
                     System.out.println("CLIENT: YOU WIN!");
@@ -57,6 +62,7 @@ public class Client extends Thread {
             throw new RuntimeException(e);
         }
     }
+
     public void setOption(String option) {
         synchronized (this) {
             this.option = option;

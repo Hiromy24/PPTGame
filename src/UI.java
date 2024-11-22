@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class UI extends JDialog {
+    private final UI actualUI = this;
     private JPanel contentPane;
     private JLabel gameTitle;
     private JButton playButton;
@@ -68,13 +69,13 @@ public class UI extends JDialog {
                 exitButton.setEnabled(false);
 
                 menuPane.setVisible(false);
-                gamePane.setVisible(true);
+                searchingPane.setVisible(true);
                 //searchingPane.setVisible(true);
-                client = new Client();
+                client = new Client(actualUI);
                 client.start();
             }
         });
-
+        //region OptionsRockPaperScissorsListeners
         piedraButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -96,7 +97,17 @@ public class UI extends JDialog {
                 System.out.println("Scissors");
             }
         });
+        //endregion
     }
+
+    public void UpdateSearching(String s){
+        switch (s){
+            case "Partida Encontrada!":
+                searchingPane.setVisible(false);
+                gamePane.setVisible(true);
+        }
+    }
+
     public static void main(String[] args){
 
         UI dialog = new UI();
@@ -112,6 +123,5 @@ public class UI extends JDialog {
         piedraButton = new RoundedButton("", 50);
         tijeraButton = new RoundedButton("", 50);
         papelButton = new RoundedButton("", 50);
-
     }
 }

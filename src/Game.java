@@ -7,14 +7,28 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Game extends Thread {
-    private final Socket socketToPlayer1;
-    private final Socket socketToPlayer2;
-    private static final Map<String, String> winningConditions = new HashMap<>();
+    //region Socket1
+    private Socket socketToPlayer1;
+    private InputStreamReader input1;
+    private BufferedReader bf1;
+    private PrintStream output1;
+    //endregion
+    //region Socket2
+    private Socket socketToPlayer2;
+    private InputStreamReader input2;
+    private BufferedReader bf2;
+    private PrintStream output2;
+    //endregion
     //WinConditions
+    private static final Map<String, String> winningConditions = new HashMap<>();
     static {
         winningConditions.put("Rock", "Scissors");
         winningConditions.put("Paper", "Rock");
         winningConditions.put("Scissors", "Paper");
+    }
+
+    public Game() {
+
     }
 
     public Game(Socket socketToPlayer1, Socket socketToPlayer2) {
@@ -25,17 +39,7 @@ public class Game extends Thread {
     @Override
     public void run() {
         try {
-            //region inputOutputBfr
-            InputStreamReader input1 = new InputStreamReader(socketToPlayer1.getInputStream());
-            BufferedReader bf1 = new BufferedReader(input1);
-            PrintStream output1 = new PrintStream(socketToPlayer1.getOutputStream());
 
-            InputStreamReader input2 = new InputStreamReader(socketToPlayer2.getInputStream());
-            BufferedReader bf2 = new BufferedReader(input2);
-            PrintStream output2 = new PrintStream(socketToPlayer2.getOutputStream());
-            //endregion
-            //output1.println("Player 1: " + player1Choice);
-            //output2.println("Player 2: " + player2Choice);
             int rounds = 0;
             while (rounds != 3){
                 String player1Choice = bf1.readLine();
@@ -59,6 +63,24 @@ public class Game extends Thread {
             socketToPlayer2.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void addSocket(Socket socket) throws IOException {
+        if (socketToPlayer1 == null){
+            socketToPlayer1 = socket;
+            input1 = new InputStreamReader(socketToPlayer1.getInputStream());
+            bf1 = new BufferedReader(input1);
+            output1 = new PrintStream(socketToPlayer1.getOutputStream());
+        }else {
+            socketToPlayer2 = socket;
+            input2 = new InputStreamReader(socketToPlayer2.getInputStream());
+            bf2 = new BufferedReader(input2);
+            output2 = new PrintStream(socketToPlayer2.getOutputStream());
+            output1.println("Partida Encontrada!");
+            output2.println("Partida Encontrada!");
+            output1.flush();
+            output2.flush();
         }
     }
 }

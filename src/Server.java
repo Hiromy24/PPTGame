@@ -17,14 +17,17 @@ public class Server {
         try (ServerSocket serverSocket = new ServerSocket()) {
             serverSocket.bind(sa);
             while (true) {
+                Game game = new Game();
                 System.out.println("SERVER: Waiting for request on port " + PUERTO);
                 Socket socketToPlayer1 = serverSocket.accept();
                 System.out.println("SERVER: Player 1 connected");
+                game.addSocket(socketToPlayer1);
 
                 Socket socketToPlayer2 = serverSocket.accept();
                 System.out.println("SERVER: Player 2 connected");
+                game.addSocket(socketToPlayer2);
 
-                games.add(new Game(socketToPlayer1, socketToPlayer2));
+                games.add(game);
                 games.get(gameNumber).start();
                 gameNumber++;
             }
