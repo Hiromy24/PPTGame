@@ -11,6 +11,9 @@ public class Client extends Thread {
     private PrintWriter output;
     private String option;
     private final UI userUI;
+    private boolean is_finished = false;
+    private int win = 0;
+    private int lose = 0;
 
     public Client(UI actualUI) {
         userUI = actualUI;
@@ -22,8 +25,8 @@ public class Client extends Thread {
         System.out.println("-----------------------------------");
         //endregion
         InetSocketAddress connection = new InetSocketAddress(IP_SERVER, PUERTO);
-        try(Socket socket = new Socket()) {
-            //TODO: PSW
+        try {
+            Socket socket = new Socket();
             socket.connect(connection);
             InputStreamReader input = new InputStreamReader(socket.getInputStream());
             BufferedReader br = new BufferedReader(input);
@@ -33,9 +36,7 @@ public class Client extends Thread {
             System.out.println("CLIENT: Waiting response from server...");
 
             userUI.UpdateSearching(br.readLine());
-
-            int rounds =0;
-            while (rounds != 3){
+            while (!is_finished && win < 3 && lose < 3) {
                 synchronized (this) {
                     while (option == null) {
                         try {
@@ -51,19 +52,29 @@ public class Client extends Thread {
                 String enemyOption = br.readLine();
                 userUI.UpdateSearching(enemyOption);
                 String is_win = br.readLine();
-                if (is_win.equals("WIN")) {
-                    System.out.println("CLIENT: YOU WIN!");
-                } else if (is_win.equals("LOSE")) {
-                    System.out.println("CLIENT: YOU LOSE!");
-                }else {
-                    System.out.println("CLIENT: ITS A TIE!");
+                switch (is_win) {
+                    case "WIN" -> {
+                        System.out.println("CLIENT: YOU WIN!");
+                        win++;
+                    }
+                    case "LOSE" -> {
+                        System.out.println("CLIENT: YOU LOSE!");
+                        lose++;
+                    }
+                    case "Partida Finalizada!" -> {
+                        System.out.println("CLIENT: GAME FINISHED!");
+                        userUI.UpdateSearching("Partida Finalizada!");
+                        is_finished = true;
+                    }
+                    default -> System.out.println("CLIENT: ITS A TIE!");
                 }
                 rounds++;
                 sleep(5000);
                 userUI.UpdateSearching("Siguiente Ronda!");
             }
-
-
+            if (!is_finished)
+                userUI.UpdateSearching("Partida Finalizada!");
+            System.out.println("CLIENT: GAME FINISHED!");
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }

@@ -140,9 +140,9 @@ public class UI extends JDialog {
         //endregion
     }
 
-    public void UpdateSearching(String s){
-        switch (s){
-            case "Partida Encontrada!":
+    public void UpdateSearching(String s) {
+        switch (s) {
+            case "Partida Encontrada!" -> {
                 searchingPane.setVisible(false);
                 gamePane.setVisible(true);
                 break;
@@ -188,6 +188,16 @@ public class UI extends JDialog {
                     resultadoRondaLbl.setText("Es un empate!");
                 }
                 break;
+            }
+            case "Partida Finalizada!" -> {
+                playButton.setVisible(true);
+                exitButton.setVisible(true);
+                playButton.setEnabled(true);
+                exitButton.setEnabled(true);
+                menuPane.setVisible(true);
+                searchingPane.setVisible(false);
+                gamePane.setVisible(false);
+            }
         }
     }
 
