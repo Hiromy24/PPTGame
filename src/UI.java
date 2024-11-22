@@ -16,12 +16,15 @@ public class UI extends JDialog {
     private JLabel searchingLbl;
     private JButton playButton;
     private JButton exitButton;
+
+    private JLabel eleccionActualLbl;
+    private JLabel resultadoRondaLbl;
     private JButton piedraButton;
     private JButton papelButton;
     private JButton tijeraButton;
-    private JLabel eleccionActualLbl;
-    private JLabel resultadoRondaLbl;
-    private JPanel botonesPane;
+    private JButton enemigoPiedraButton;
+    private JButton enemigoPapelButton;
+    private JButton enemigoTijeraButton;
     private Client client;
 
 
@@ -54,18 +57,24 @@ public class UI extends JDialog {
         ImageIcon iconRock = new ImageIcon("src/img/Rock.png");
         Image imgRock = iconRock.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
         piedraButton.setIcon(new ImageIcon(imgRock));
+        enemigoPiedraButton.setIcon(new ImageIcon(imgRock));
 
         ImageIcon iconTijera = new ImageIcon("src/img/Scissors.png");
         Image imgTijera = iconTijera.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
         tijeraButton.setIcon(new ImageIcon(imgTijera));
+        enemigoTijeraButton.setIcon(new ImageIcon(imgTijera));
 
         ImageIcon iconPapel = new ImageIcon("src/img/Paper.png");
         Image imgPapel = iconPapel.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
         papelButton.setIcon(new ImageIcon(imgPapel));
+        enemigoPapelButton.setIcon(new ImageIcon(imgPapel));
 
         piedraButton.setBackground(Color.decode("#FCBA03"));
         tijeraButton.setBackground(Color.decode("#FCBA03"));
         papelButton.setBackground(Color.decode("#FCBA03"));
+        enemigoPiedraButton.setBackground(Color.decode("#FCBA03"));
+        enemigoTijeraButton.setBackground(Color.decode("#FCBA03"));
+        enemigoPapelButton.setBackground(Color.decode("#FCBA03"));
         //endregion
         musicManager.playMusic("src/audioClips/Happy.wav");
 
@@ -95,7 +104,9 @@ public class UI extends JDialog {
                 setWaitingPlayer();
                 tijeraButton.setVisible(false);
                 papelButton.setVisible(false);
+
                 piedraButton.setEnabled(false);
+
             }
         });
         papelButton.addActionListener(new ActionListener() {
@@ -107,7 +118,10 @@ public class UI extends JDialog {
                 setWaitingPlayer();
                 piedraButton.setVisible(false);
                 tijeraButton.setVisible(false);
+
                 papelButton.setEnabled(false);
+
+
             }
         });
         tijeraButton.addActionListener(new ActionListener() {
@@ -119,6 +133,7 @@ public class UI extends JDialog {
                 setWaitingPlayer();
                 piedraButton.setVisible(false);
                 papelButton.setVisible(false);
+
                 tijeraButton.setEnabled(false);
             }
         });
@@ -138,6 +153,27 @@ public class UI extends JDialog {
                 piedraButton.setEnabled(true);
                 papelButton.setEnabled(true);
                 tijeraButton.setEnabled(true);
+
+                enemigoPiedraButton.setVisible(false);
+                enemigoPapelButton.setVisible(false);
+                enemigoTijeraButton.setVisible(false);
+                break;
+            case "Mostrar Opciones":
+                piedraButton.setVerticalAlignment(SwingConstants.LEFT);
+                papelButton.setVerticalAlignment(SwingConstants.LEFT);
+                tijeraButton.setVerticalAlignment(SwingConstants.LEFT);
+                enemigoPiedraButton.setVerticalAlignment(SwingConstants.RIGHT);
+                enemigoPapelButton.setVerticalAlignment(SwingConstants.RIGHT);
+                enemigoTijeraButton.setVerticalAlignment(SwingConstants.RIGHT);
+                break;
+            case "Piedra Enemiga!":
+                enemigoPiedraButton.setVisible(true);
+                break;
+            case "Papel Enemigo!":
+                enemigoPapelButton.setVisible(true);
+                break;
+            case "Tijera Enemiga!":
+                enemigoTijeraButton.setVisible(true);
                 break;
         }
     }
@@ -161,5 +197,9 @@ public class UI extends JDialog {
         piedraButton = new RoundedButton("", 50);
         tijeraButton = new RoundedButton("", 50);
         papelButton = new RoundedButton("", 50);
+
+        enemigoPiedraButton = new RoundedButton("",50);
+        enemigoPapelButton = new RoundedButton("",50);
+        enemigoTijeraButton = new RoundedButton("",50);
     }
 }
