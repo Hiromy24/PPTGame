@@ -36,7 +36,8 @@ public class Game extends Thread {
             while (player1Victories != 3 && player2Victories != 3) {
                 String player1Choice = bf1.readLine();
                 String player2Choice = bf2.readLine();
-
+                output1.println(player2Choice);
+                output2.println(player1Choice);
                 if (player1Choice.equals(player2Choice)) {
                     output1.println("It's a tie!");
                     output2.println("It's a tie!");
