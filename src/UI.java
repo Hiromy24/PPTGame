@@ -164,26 +164,32 @@ public class UI extends JDialog {
                     resultadoRondaLbl.setText("Es un empate!");
                 }else if (papelButton.isVisible()){
                     resultadoRondaLbl.setText("Ganaste la Ronda!");
+                    sfx.playMusic("src/audioClips/sfx/LevelUp.wav", false);
                 }else {
                     resultadoRondaLbl.setText("Perdiste la Ronda!");
+                    sfx.playMusic("src/audioClips/sfx/RoundLose.wav", false);
                 }
             }
             case "Paper" -> {
                 enemigoPapelButton.setVisible(true);
                 if (piedraButton.isVisible()){
                     resultadoRondaLbl.setText("Perdiste la Ronda!");
+                    sfx.playMusic("src/audioClips/sfx/RoundLose.wav", false);
                 }else if (papelButton.isVisible()){
                     resultadoRondaLbl.setText("Es un empate!");
                 }else {
                     resultadoRondaLbl.setText("Ganaste la Ronda!");
+                    sfx.playMusic("src/audioClips/sfx/LevelUp.wav", false);
                 }
             }
             case "Scissors" -> {
                 enemigoTijeraButton.setVisible(true);
                 if (piedraButton.isVisible()){
                     resultadoRondaLbl.setText("Ganaste la Ronda!");
+                    sfx.playMusic("src/audioClips/sfx/LevelUp.wav", false);
                 }else if (papelButton.isVisible()){
                     resultadoRondaLbl.setText("Perdiste la Ronda!");
+                    sfx.playMusic("src/audioClips/sfx/RoundLose.wav", false);
                 }else {
                     resultadoRondaLbl.setText("Es un empate!");
                 }
