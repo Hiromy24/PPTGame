@@ -129,12 +129,12 @@ public class UI extends JDialog {
         switch (s) {
             case "Partida Encontrada!" -> {
                 musicManager.stopMusic();
-                sfx.playMusic("src/audioClips/sfx/Click1.wav", false, 10);
+                sfx.playMusic("src/audioClips/sfx/Click1.wav", false);
                 Timer timer = new Timer(500, e -> {
                     searchingPane.setVisible(false);
                     gamePane.setVisible(true);
-                    musicManager.playMusic("src/audioClips/Mystery.wav", true, 50);
                 });
+                musicManager.playMusic("src/audioClips/Mystery.wav", true, "fadeIn",1000);
                 timer.setRepeats(false);
                 timer.start();
             }
