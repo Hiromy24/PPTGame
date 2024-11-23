@@ -6,14 +6,13 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 
 public class Client extends Thread {
-    public static final String IP_SERVER = "10.34.125.247";
+    public static final String IP_SERVER = "localhost";
     public static final int PUERTO = 2024;
+    private final UI userUI;
     private PrintWriter output;
     private String option;
-    private final UI userUI;
     private boolean is_finished = false;
-    private int win = 0;
-    private int lose = 0;
+    private int win = 0, lose = 0;
 
     public Client(UI actualUI) {
         userUI = actualUI;

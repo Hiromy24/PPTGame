@@ -6,31 +6,18 @@ import java.io.File;
 import java.io.IOException;
 
 public class UI extends JDialog {
+    //region ClassAttributes
     private final UI actualUI = this;
-    private JPanel contentPane;
-    private JPanel searchingPane;
-    private JPanel menuPane;
-    private JPanel gamePane;
-    private JPanel VeredictoPane;
-    private JLabel gameTitle;
-    private JLabel searchingLbl;
-    private JButton playButton;
-    private JButton exitButton;
-    private JPanel botonesPane;
-    private JLabel eleccionActualLbl;
-    private JLabel resultadoRondaLbl;
-    private JButton piedraButton;
-    private JButton papelButton;
-    private JButton tijeraButton;
-    private JButton enemigoPiedraButton;
-    private JButton enemigoPapelButton;
-    private JButton enemigoTijeraButton;
-    private JPanel loadingPane;
     private Client client;
-    private MusicManager musicManager;
-
+    private MusicManager musicManager, sfx;
+    private JPanel contentPane, searchingPane, menuPane, gamePane, VeredictoPane, botonesPane,loadingPane;
+    private JLabel gameTitle, searchingLbl, eleccionActualLbl, resultadoRondaLbl;
+    private JButton playButton, exitButton;
+    private JButton piedraButton, papelButton, tijeraButton, enemigoPiedraButton, enemigoPapelButton, enemigoTijeraButton;
+    //endregion
     public UI() {
         musicManager = new MusicManager();
+        sfx = new MusicManager();
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(playButton);
@@ -78,8 +65,6 @@ public class UI extends JDialog {
         enemigoPapelButton.setBackground(Color.decode("#FCBA03"));
         //endregion
         musicManager.playMusic("src/audioClips/Happy.wav");
-
-
 
         playButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
