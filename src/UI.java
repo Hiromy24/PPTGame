@@ -64,7 +64,7 @@ public class UI extends JDialog {
         enemigoTijeraButton.setBackground(Color.decode("#FCBA03"));
         enemigoPapelButton.setBackground(Color.decode("#FCBA03"));
         //endregion
-        musicManager.playMusic("src/audioClips/Happy.wav");
+        musicManager.playMusic("src/audioClips/Happy.wav",true);
 
         playButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -128,22 +128,20 @@ public class UI extends JDialog {
     public void UpdateSearching(String s) {
         switch (s) {
             case "Partida Encontrada!" -> {
-                searchingPane.setVisible(false);
-                gamePane.setVisible(true);
                 musicManager.stopMusic();
-                musicManager.playMusic("src/audioClips/Mystery.wav");
+                sfx.playMusic("src/audioClips/sfx/Click1.wav", false, 10);
+                Timer timer = new Timer(500, e -> {
+                    searchingPane.setVisible(false);
+                    gamePane.setVisible(true);
+                    musicManager.playMusic("src/audioClips/Mystery.wav", true, 50);
+                });
+                timer.setRepeats(false);
+                timer.start();
             }
             case "Siguiente Ronda!" -> {
-                piedraButton.setVisible(true);
-                papelButton.setVisible(true);
-                tijeraButton.setVisible(true);
-                piedraButton.setEnabled(true);
-                papelButton.setEnabled(true);
-                tijeraButton.setEnabled(true);
-
-                enemigoPiedraButton.setVisible(false);
-                enemigoPapelButton.setVisible(false);
-                enemigoTijeraButton.setVisible(false);
+                resetPlayerButtons();
+                cleanVeredictPane();
+                resetOponentButtons();
             }
             case "Rock" -> {
                 enemigoPiedraButton.setVisible(true);
@@ -184,13 +182,33 @@ public class UI extends JDialog {
                 searchingPane.setVisible(false);
                 gamePane.setVisible(false);
                 musicManager.stopMusic();
-                musicManager.playMusic("src/audioClips/Happy.wav");
+                musicManager.playMusic("src/audioClips/Happy.wav", true);
             }
         }
     }
 
+
     public void setWaitingPlayer() {
-                resultadoRondaLbl.setText("Esperando al otro Jugador...");
+        resultadoRondaLbl.setText("Esperando al otro Jugador...");
+    }
+
+    public void cleanVeredictPane(){
+        resultadoRondaLbl.setText("");
+        eleccionActualLbl.setText("");
+    }
+
+    public void resetPlayerButtons(){
+        piedraButton.setVisible(true);
+        papelButton.setVisible(true);
+        tijeraButton.setVisible(true);
+        piedraButton.setEnabled(true);
+        papelButton.setEnabled(true);
+        tijeraButton.setEnabled(true);
+    }
+    public void resetOponentButtons(){
+        enemigoPiedraButton.setVisible(false);
+        enemigoPapelButton.setVisible(false);
+        enemigoTijeraButton.setVisible(false);
     }
     public static void main(String[] args){
 
