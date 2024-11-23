@@ -10,6 +10,7 @@ public class UI extends JDialog {
     private final UI actualUI = this;
     private Client client;
     private MusicManager musicManager, sfx;
+    private Timer timer;
     private JPanel contentPane, searchingPane, menuPane, gamePane, VeredictoPane, botonesPane,loadingPane;
     private JLabel gameTitle, searchingLbl, eleccionActualLbl, resultadoRondaLbl;
     private JButton playButton, exitButton;
@@ -68,7 +69,7 @@ public class UI extends JDialog {
 
         playButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                sfx.playMusic("src/audioClips/sfx/Click2.wav");
                 playButton.setVisible(false);
                 exitButton.setVisible(false);
                 playButton.setEnabled(false);
@@ -81,10 +82,17 @@ public class UI extends JDialog {
                 client.start();
             }
         });
+        exitButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
         //region OptionsRockPaperScissorsListeners
         piedraButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                sfx.playMusic("src/audioClips/sfx/Click3.wav");
                 client.setOption("Rock");
                 System.out.println("Rock");
                 eleccionActualLbl.setText("Eleccion Actual: Piedra");
@@ -99,6 +107,7 @@ public class UI extends JDialog {
         papelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                sfx.playMusic("src/audioClips/sfx/Click3.wav");
                 client.setOption("Paper");
                 System.out.println("Paper");
                 eleccionActualLbl.setText("Eleccion Actual: Papel");
@@ -112,6 +121,7 @@ public class UI extends JDialog {
         tijeraButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                sfx.playMusic("src/audioClips/sfx/Click3.wav");
                 client.setOption("Scissors");
                 System.out.println("Scissors");
                 eleccionActualLbl.setText("Eleccion Actual: Tijeras");
@@ -130,11 +140,16 @@ public class UI extends JDialog {
             case "Partida Encontrada!" -> {
                 musicManager.stopMusic();
                 sfx.playMusic("src/audioClips/sfx/Click1.wav", false);
-                Timer timer = new Timer(500, e -> {
+                timer = new Timer(500, e -> {
                     searchingPane.setVisible(false);
                     gamePane.setVisible(true);
+                    sfx.playMusic("src/audioClips/sfx/Switch.wav", false);
                 });
-                musicManager.playMusic("src/audioClips/Mystery.wav", true, "fadeIn",1000);
+                timer.setRepeats(false);
+                timer.start();
+                timer = new Timer(700, e ->{
+                    musicManager.playMusic("src/audioClips/Mystery.wav", true, "fadeIn",500);
+                });
                 timer.setRepeats(false);
                 timer.start();
             }
