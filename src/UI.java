@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class UI extends JDialog {
     //region ClassAttributes
@@ -15,8 +16,12 @@ public class UI extends JDialog {
     private JLabel gameTitle, searchingLbl, eleccionActualLbl, resultadoRondaLbl;
     private JButton playButton, exitButton;
     private JButton piedraButton, papelButton, tijeraButton, enemigoPiedraButton, enemigoPapelButton, enemigoTijeraButton;
+    private JLabel enemyScoreLbl;
+    private JLabel scoreLbl;
+    private String[] music = {"src/audioClips/Darkness.wav","src/audioClips/Forest.wav", "src/audioClips/Happy.wav", "src/audioClips/Mystery.wav", "src/audioClips/Space Walk.wav"};
     //endregion
     public UI() {
+
         musicManager = new MusicManager();
         sfx = new MusicManager();
         setContentPane(contentPane);
@@ -26,8 +31,10 @@ public class UI extends JDialog {
         try{
             Font customFont50 = Font.createFont(Font.TRUETYPE_FONT, new File("src/Fonts/BlitzBold.otf"));
             Font customFont35 = Font.createFont(Font.TRUETYPE_FONT, new File("src/Fonts/BlitzBold.otf"));
+            Font customFont30 = Font.createFont(Font.TRUETYPE_FONT, new File("src/Fonts/BlitzBold.otf"));
             customFont50 = customFont50.deriveFont(50f);
             customFont35 = customFont35.deriveFont(35f);
+            customFont30 = customFont30.deriveFont(25f);
             gameTitle.setFont(customFont50);
             playButton.setFont(customFont50);
             exitButton.setFont(customFont50);
@@ -35,6 +42,8 @@ public class UI extends JDialog {
             eleccionActualLbl.setFont(customFont50);
             eleccionActualLbl.setFont(customFont35);
             resultadoRondaLbl.setFont(customFont35);
+            scoreLbl.setFont(customFont30);
+            enemyScoreLbl.setFont(customFont30);
         }catch (FontFormatException | IOException e) {
             e.printStackTrace();
             gameTitle.setText("No se pudo cargar la fuente.");
@@ -65,7 +74,7 @@ public class UI extends JDialog {
         enemigoTijeraButton.setBackground(Color.decode("#FCBA03"));
         enemigoPapelButton.setBackground(Color.decode("#FCBA03"));
         //endregion
-        musicManager.playMusic("src/audioClips/Happy.wav",true);
+        musicManager.playMusic(music[2],true);
 
         playButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -148,7 +157,7 @@ public class UI extends JDialog {
                 timer.setRepeats(false);
                 timer.start();
                 timer = new Timer(700, e ->{
-                    musicManager.playMusic("src/audioClips/Mystery.wav", true, "fadeIn",500);
+                    musicManager.playMusic(music[3], true, "fadeIn",500);
                 });
                 timer.setRepeats(false);
                 timer.start();
@@ -203,7 +212,7 @@ public class UI extends JDialog {
                 searchingPane.setVisible(false);
                 gamePane.setVisible(false);
                 musicManager.stopMusic();
-                musicManager.playMusic("src/audioClips/Happy.wav", true);
+                musicManager.playMusic(music[2], true);
             }
         }
     }
