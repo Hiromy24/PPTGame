@@ -19,6 +19,7 @@ public class UI extends JDialog {
     private JLabel enemyScoreLbl;
     private JLabel scoreLbl;
     private String[] music = {"src/audioClips/Darkness.wav","src/audioClips/Forest.wav", "src/audioClips/Happy.wav", "src/audioClips/Mystery.wav", "src/audioClips/Space Walk.wav"};
+    private int score = 0, enemyScore= 0;
     //endregion
     public UI() {
 
@@ -26,6 +27,7 @@ public class UI extends JDialog {
         sfx = new MusicManager();
         setContentPane(contentPane);
         setModal(true);
+        setResizable(false);
         getRootPane().setDefaultButton(playButton);
         //region FontsApplied
         try{
@@ -174,9 +176,11 @@ public class UI extends JDialog {
                 }else if (papelButton.isVisible()){
                     resultadoRondaLbl.setText("Ganaste la Ronda!");
                     sfx.playMusic("src/audioClips/sfx/LevelUp.wav", false);
+                    addPoints(1,scoreLbl);
                 }else {
                     resultadoRondaLbl.setText("Perdiste la Ronda!");
                     sfx.playMusic("src/audioClips/sfx/RoundLose.wav", false);
+                    addPoints(1,enemyScoreLbl);
                 }
             }
             case "Paper" -> {
@@ -184,11 +188,13 @@ public class UI extends JDialog {
                 if (piedraButton.isVisible()){
                     resultadoRondaLbl.setText("Perdiste la Ronda!");
                     sfx.playMusic("src/audioClips/sfx/RoundLose.wav", false);
+                    addPoints(1,enemyScoreLbl);
                 }else if (papelButton.isVisible()){
                     resultadoRondaLbl.setText("Es un empate!");
                 }else {
                     resultadoRondaLbl.setText("Ganaste la Ronda!");
                     sfx.playMusic("src/audioClips/sfx/LevelUp.wav", false);
+                    addPoints(1,scoreLbl);
                 }
             }
             case "Scissors" -> {
@@ -196,9 +202,11 @@ public class UI extends JDialog {
                 if (piedraButton.isVisible()){
                     resultadoRondaLbl.setText("Ganaste la Ronda!");
                     sfx.playMusic("src/audioClips/sfx/LevelUp.wav", false);
+                    addPoints(1,scoreLbl);
                 }else if (papelButton.isVisible()){
                     resultadoRondaLbl.setText("Perdiste la Ronda!");
                     sfx.playMusic("src/audioClips/sfx/RoundLose.wav", false);
+                    addPoints(1,enemyScoreLbl);
                 }else {
                     resultadoRondaLbl.setText("Es un empate!");
                 }
@@ -222,11 +230,20 @@ public class UI extends JDialog {
         resultadoRondaLbl.setText("Esperando al otro Jugador...");
     }
 
+    public void addPoints(int points, JLabel player) {
+        if (player == scoreLbl){
+            score+= points;
+            scoreLbl.setText("Tu Puntaje: "+score);
+        }else{
+            enemyScore+= points;
+            enemyScoreLbl.setText(enemyScore+" :Puntaje Enemigo");
+        }
+    }
+
     public void cleanVeredictPane(){
         resultadoRondaLbl.setText("");
         eleccionActualLbl.setText("");
     }
-
     public void resetPlayerButtons(){
         piedraButton.setVisible(true);
         papelButton.setVisible(true);
