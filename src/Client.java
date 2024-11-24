@@ -13,6 +13,7 @@ public class Client extends Thread {
     private String option;
     private boolean is_finished = false;
     private int win = 0, lose = 0;
+    private int gamePsw = 0;
 
     public Client(UI actualUI) {
         userUI = actualUI;
@@ -85,4 +86,7 @@ public class Client extends Thread {
         }
     }
 
+    public void setGamePsw(int gamePsw) {
+        this.gamePsw = gamePsw;
+    }
 }
