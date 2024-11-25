@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Objects;
 
-public class UI extends JDialog {
+public class UI extends JFrame {
     //region ClassAttributes
     private final UI actualUI = this;
     private Client client;
@@ -35,10 +35,14 @@ public class UI extends JDialog {
         musicManager = new MusicManager();
         sfx = new MusicManager();
         musicManager.playMusic(music[2],true);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(contentPane);
-        setModal(true);
+        setVisible(true);
+        setTitle("Piedra papel... o TIJERAS!");
         setResizable(false);
         getRootPane().setDefaultButton(playButton);
+        setExtendedState(JFrame.NORMAL);
+
         //region FontsApplied
         try{
             Font customFont50 = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(getClass().getResourceAsStream("/Fonts/BlitzBold.otf")));
@@ -385,7 +389,7 @@ public class UI extends JDialog {
         UI dialog = new UI();
         dialog.pack();
         dialog.setVisible(true);
-        System.exit(0);
+        dialog.setLocationRelativeTo(null);
     }
 
     //Custom Components
