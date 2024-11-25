@@ -15,19 +15,12 @@ public class UI extends JDialog {
     private Client client;
     private MusicManager musicManager, sfx;
     private Timer timer;
-    private JPanel contentPane, searchingPane, menuPane, gamePane, VeredictoPane, botonesPane,loadingPane, playMenuPane, privateGamePane, playMenuSettingsPane;
+    private JPanel contentPane, searchingPane, menuPane, gamePane, VeredictoPane, botonesPane,loadingPane, playMenuPane, privateGamePane, playMenuSettingsPane, panel1, panel2, winnerGamePane, scorePane, enemyScorePane;
     private JLabel gameTitle, searchingLbl, eleccionActualLbl, resultadoRondaLbl, pswLbl, winnerName;
     private JButton playButton,privatePlayButton, exitButton,publicGameButton,privateGameButton ,backButton, back2Button, goToMenuButton;
     private JButton piedraButton, papelButton, tijeraButton, enemigoPiedraButton, enemigoPapelButton, enemigoTijeraButton;
-    private JLabel scoreLbl, enemyScoreLbl;
+    private JLabel scoreLbl, enemyScoreLbl, yourResult, enemyResult;
     private JTextField pswTxtField;
-    private JPanel winnerGamePane;
-    private JPanel panel1;
-    private JPanel panel2;
-    private JPanel scorePane;
-    private JPanel enemyScorePane;
-    private JLabel yourResult;
-    private JLabel enemyResult;
     private String[] music = {
             "/audioClips/Darkness.wav",
             "/audioClips/Forest.wav",
