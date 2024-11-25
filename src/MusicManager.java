@@ -20,10 +20,8 @@ public class MusicManager {
             File audioFile = new File(filePath);
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
 
-            // Obtén el formato del audio original
             AudioFormat baseFormat = audioStream.getFormat();
 
-            // Configura un formato compatible (44.1 kHz, 16 bits, estéreo)
             AudioFormat decodedFormat = new AudioFormat(
                     AudioFormat.Encoding.PCM_SIGNED,
                     44100,
@@ -34,7 +32,6 @@ public class MusicManager {
                     false
             );
 
-            // Convierte el audio al nuevo formato
             AudioInputStream decodedAudioStream = AudioSystem.getAudioInputStream(decodedFormat, audioStream);
 
             clip = AudioSystem.getClip();
@@ -47,7 +44,7 @@ public class MusicManager {
                 fadeOut(effectDelayMs);
             }
             if (loop) {
-                clip.loop(Clip.LOOP_CONTINUOUSLY); // Repetir en bucle
+                clip.loop(Clip.LOOP_CONTINUOUSLY);
             }
             clip.start();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
@@ -57,7 +54,7 @@ public class MusicManager {
 
     private void setVolume(float value) {
         if (gainControl != null) {
-            gainControl.setValue(value); // Valor en decibelios (-80.0f es silencio, 0.0f es el volumen máximo)
+            gainControl.setValue(value);
         }
     }
     private void fadeIn(int durationMs) {

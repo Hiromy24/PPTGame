@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
@@ -15,13 +16,18 @@ public class UI extends JDialog {
     private MusicManager musicManager, sfx;
     private Timer timer;
     private JPanel contentPane, searchingPane, menuPane, gamePane, VeredictoPane, botonesPane,loadingPane, playMenuPane, privateGamePane, playMenuSettingsPane;
-    private JLabel gameTitle, searchingLbl, eleccionActualLbl, resultadoRondaLbl, pswLbl;
-    private JButton playButton,privatePlayButton, exitButton,publicGameButton,privateGameButton ,backButton, back2Button;
+    private JLabel gameTitle, searchingLbl, eleccionActualLbl, resultadoRondaLbl, pswLbl, winnerName;
+    private JButton playButton,privatePlayButton, exitButton,publicGameButton,privateGameButton ,backButton, back2Button, goToMenuButton;
     private JButton piedraButton, papelButton, tijeraButton, enemigoPiedraButton, enemigoPapelButton, enemigoTijeraButton;
     private JLabel scoreLbl, enemyScoreLbl;
     private JTextField pswTxtField;
     private JPanel winnerGamePane;
-    private JButton goToMenuButton;
+    private JPanel panel1;
+    private JPanel panel2;
+    private JPanel scorePane;
+    private JPanel enemyScorePane;
+    private JLabel yourResult;
+    private JLabel enemyResult;
     private String[] music = {"src/audioClips/Darkness.wav","src/audioClips/Forest.wav", "src/audioClips/Happy.wav", "src/audioClips/Mystery.wav", "src/audioClips/Space Walk.wav"};
     private int score = 0, enemyScore= 0;
     //endregion
@@ -29,6 +35,7 @@ public class UI extends JDialog {
 
         musicManager = new MusicManager();
         sfx = new MusicManager();
+        musicManager.playMusic(music[2],true);
         setContentPane(contentPane);
         setModal(true);
         setResizable(false);
@@ -59,7 +66,10 @@ public class UI extends JDialog {
             scoreLbl.setFont(customFont25);
             enemyScoreLbl.setFont(customFont25);
             pswLbl.setFont(customFont35);
+            winnerName.setFont(customFont35);
             privatePlayButton.setFont(customFont35);
+            goToMenuButton.setFont(customFont35);
+
         }catch (FontFormatException | IOException e) {
             e.printStackTrace();
             gameTitle.setText("No se pudo cargar la fuente.");
@@ -106,8 +116,9 @@ public class UI extends JDialog {
 
 
         //endregion
-        musicManager.playMusic(music[2],true);
 
+
+        //region menuPaneListeners
         playButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 sfx.playMusic("src/audioClips/sfx/Click2.wav");
@@ -116,40 +127,23 @@ public class UI extends JDialog {
 
             }
         });
-        privatePlayButton.addActionListener(new ActionListener() {
+        exitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                sfx.playMusic("src/audioClips/sfx/Click2.wav");
-                playMenuPane.setVisible(false);
-                searchingPane.setVisible(true);
-                client = new Client(actualUI);
-                client.start();
-                try {
-                    client.setGamePsw(Integer.parseInt(pswTxtField.getText()));
-                }catch (NumberFormatException e1) {
-                    client.setGamePsw(0);
-                }
+                System.exit(0);
             }
         });
+        //endregion
+        //region playMenuPaneListeners
         publicGameButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 sfx.playMusic("src/audioClips/sfx/Click2.wav");
-                publicGameButton.setVisible(false);
-                privateGameButton.setVisible(false);
-                backButton.setVisible(false);
-                publicGameButton.setEnabled(false);
-                privateGameButton.setEnabled(false);
-                backButton.setEnabled(false);
+
 
                 playMenuPane.setVisible(false);
                 searchingPane.setVisible(true);
                 //searchingPane.setVisible(true);
                 client = new Client(actualUI);
                 client.start();
-            }
-        });
-        exitButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
             }
         });
         privateGameButton.addActionListener(new ActionListener() {
@@ -167,15 +161,8 @@ public class UI extends JDialog {
                 menuPane.setVisible(true);
             }
         });
-        back2Button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                sfx.playMusic("src/audioClips/sfx/Click2.wav");
-                privateGamePane.setVisible(false);
-                playMenuSettingsPane.setVisible(true);
-                pswTxtField.setText("");
-            }
-        });
-
+        //endregion
+        //region privateGamePaneListeners
         pswTxtField.setDocument(new PlainDocument(){
             @Override
             public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
@@ -184,17 +171,40 @@ public class UI extends JDialog {
                 }
             }
         });
+        privatePlayButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                sfx.playMusic("src/audioClips/sfx/Click2.wav");
+                playMenuPane.setVisible(false);
+                searchingPane.setVisible(true);
+                client = new Client(actualUI);
+                client.start();
+                try {
+                    client.setGamePsw(Integer.parseInt(pswTxtField.getText()));
+                }catch (NumberFormatException e1) {
+                    client.setGamePsw(0);
+                }
+            }
+        });
+        back2Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                sfx.playMusic("src/audioClips/sfx/Click2.wav");
+                privateGamePane.setVisible(false);
+                playMenuSettingsPane.setVisible(true);
+                pswTxtField.setText("");
+            }
+        });
+        //endregion
         //region OptionsRockPaperScissorsListeners
         piedraButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 sfx.playMusic("src/audioClips/sfx/Click3.wav");
+                tijeraButton.setVisible(false);
+                papelButton.setVisible(false);
                 client.setOption("Rock");
                 System.out.println("Rock");
                 eleccionActualLbl.setText("Eleccion Actual: Piedra");
                 setWaitingPlayer();
-                tijeraButton.setVisible(false);
-                papelButton.setVisible(false);
 
                 piedraButton.setEnabled(false);
 
@@ -204,12 +214,12 @@ public class UI extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 sfx.playMusic("src/audioClips/sfx/Click3.wav");
+                piedraButton.setVisible(false);
+                tijeraButton.setVisible(false);
                 client.setOption("Paper");
                 System.out.println("Paper");
                 eleccionActualLbl.setText("Eleccion Actual: Papel");
                 setWaitingPlayer();
-                piedraButton.setVisible(false);
-                tijeraButton.setVisible(false);
                 papelButton.setEnabled(false);
 
             }
@@ -218,17 +228,36 @@ public class UI extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 sfx.playMusic("src/audioClips/sfx/Click3.wav");
+                piedraButton.setVisible(false);
+                papelButton.setVisible(false);
                 client.setOption("Scissors");
                 System.out.println("Scissors");
                 eleccionActualLbl.setText("Eleccion Actual: Tijeras");
                 setWaitingPlayer();
-                piedraButton.setVisible(false);
-                papelButton.setVisible(false);
 
                 tijeraButton.setEnabled(false);
             }
         });
         //endregion
+
+        goToMenuButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gamePane.setVisible(false);
+                menuPane.setVisible(true);
+                botonesPane.setVisible(true);
+                eleccionActualLbl.setVisible(true);
+                resultadoRondaLbl.setVisible(true);
+                winnerName.setVisible(false);
+                goToMenuButton.setVisible(false);
+                scorePane.setBorder(new EmptyBorder(0,0,0,0));
+                enemyScorePane.setBorder(new EmptyBorder(0,0,0,0));
+                scoreLbl.setText("Tu Puntaje: 0");
+                enemyScoreLbl.setText("0 :Puntaje Enemigo");
+                scoreLbl.setHorizontalAlignment(SwingConstants.RIGHT);
+                enemyScoreLbl.setHorizontalAlignment(SwingConstants.LEFT);
+            }
+        });
     }
 
     public void UpdateSearching(String s) {
@@ -239,7 +268,10 @@ public class UI extends JDialog {
                 timer = new Timer(500, e -> {
                     searchingPane.setVisible(false);
                     gamePane.setVisible(true);
+                    scoreLbl.setText("Tu Puntaje: 0");
+                    enemyScoreLbl.setText("0 :Puntaje Enemigo");
                     sfx.playMusic("src/audioClips/sfx/Switch.wav", false);
+
                 });
                 timer.setRepeats(false);
                 timer.start();
@@ -297,15 +329,19 @@ public class UI extends JDialog {
                 }
             }
             case "Partida Finalizada!" -> {
-                playButton.setVisible(true);
-                exitButton.setVisible(true);
-                playButton.setEnabled(true);
-                exitButton.setEnabled(true);
-                menuPane.setVisible(true);
-                searchingPane.setVisible(false);
-                gamePane.setVisible(false);
                 musicManager.stopMusic();
-                musicManager.playMusic(music[2], true);
+                musicManager.playMusic(music[2], true,"fadeIn",500);
+                if (score == 3){
+                    winnerName.setText("Has Ganado!");
+                }else {
+                    winnerName.setText("Gano el rival!");
+                }
+                botonesPane.setVisible(false);
+                eleccionActualLbl.setVisible(false);
+                resultadoRondaLbl.setVisible(false);
+                winnerName.setVisible(true);
+                goToMenuButton.setVisible(true);
+
             }
         }
     }
@@ -324,6 +360,7 @@ public class UI extends JDialog {
             enemyScoreLbl.setText(enemyScore+" :Puntaje Enemigo");
         }
     }
+
     //region cleanGamepPane
     public void cleanVeredictPane(){
         resultadoRondaLbl.setText("");
@@ -343,6 +380,7 @@ public class UI extends JDialog {
         enemigoTijeraButton.setVisible(false);
     }
     //endregion
+
     public static void main(String[] args){
 
         UI dialog = new UI();
@@ -353,7 +391,7 @@ public class UI extends JDialog {
 
     //Custom Components
     private void createUIComponents() {
-        // TODO: place custom component creation code here
+
         playButton = new RoundedButton("Jugar", 30);
         exitButton = new RoundedButton("Salir", 30);
         piedraButton = new RoundedButton("", 30);
@@ -369,5 +407,6 @@ public class UI extends JDialog {
         enemigoTijeraButton = new RoundedButton("",30);
         loadingPane = new LoadingCircle();
         privatePlayButton = new RoundedButton("",30);
+        goToMenuButton = new RoundedButton("",30);
     }
 }

@@ -13,7 +13,7 @@ public class Client extends Thread {
     private String option;
     private boolean is_finished = false, createGame = true;
     private int win = 0, lose = 0;
-    private int gamePsw = 20;
+    private int gamePsw = 0;
     public Client(UI actualUI) {
         userUI = actualUI;
     }
