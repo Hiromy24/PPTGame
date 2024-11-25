@@ -17,13 +17,11 @@ public class Game extends Thread {
     private InputStreamReader input2;
     private BufferedReader bf2;
     private PrintStream output2;
-    private int gamePsw = 0;
 
     private int player1Victories = 0;
     private int player2Victories = 0;
-    private int actualPlayersConected;
-    private static final Map<String, String> winningConditions = new HashMap<>();
 
+    private static final Map<String, String> winningConditions = new HashMap<>();
     static {
         winningConditions.put("Rock", "Scissors");
         winningConditions.put("Paper", "Rock");
@@ -64,13 +62,11 @@ public class Game extends Thread {
 
     public void addSocket(Socket socket) throws IOException {
         if (socketToPlayer1 == null) {
-            actualPlayersConected++;
             socketToPlayer1 = socket;
             input1 = new InputStreamReader(socket.getInputStream());
             bf1 = new BufferedReader(input1);
             output1 = new PrintStream(socket.getOutputStream());
         } else {
-            actualPlayersConected++;
             socketToPlayer2 = socket;
             input2 = new InputStreamReader(socket.getInputStream());
             bf2 = new BufferedReader(input2);
@@ -93,14 +89,5 @@ public class Game extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-    public int getGamePsw() {
-        return gamePsw;
-    }
-    public void setGamePsw(int gamePsw) {
-        this.gamePsw = gamePsw;
-    }
-    public int playersConected(){
-        return actualPlayersConected;
     }
 }
