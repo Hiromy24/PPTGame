@@ -86,4 +86,7 @@ public class Client extends Thread {
         }
     }
 
+    public void setGamePsw(int gamePsw){
+        this.gamePsw = gamePsw;
+    }
 }

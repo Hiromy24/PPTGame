@@ -5,11 +5,8 @@ import javax.swing.text.PlainDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class UI extends JDialog {
     //region ClassAttributes
@@ -19,10 +16,12 @@ public class UI extends JDialog {
     private Timer timer;
     private JPanel contentPane, searchingPane, menuPane, gamePane, VeredictoPane, botonesPane,loadingPane, playMenuPane, privateGamePane, playMenuSettingsPane;
     private JLabel gameTitle, searchingLbl, eleccionActualLbl, resultadoRondaLbl, pswLbl;
-    private JButton playButton, exitButton,publicGameButton,privateGameButton ,backButton, back2Button;
+    private JButton playButton,privatePlayButton, exitButton,publicGameButton,privateGameButton ,backButton, back2Button;
     private JButton piedraButton, papelButton, tijeraButton, enemigoPiedraButton, enemigoPapelButton, enemigoTijeraButton;
     private JLabel scoreLbl, enemyScoreLbl;
     private JTextField pswTxtField;
+    private JPanel winnerGamePane;
+    private JButton goToMenuButton;
     private String[] music = {"src/audioClips/Darkness.wav","src/audioClips/Forest.wav", "src/audioClips/Happy.wav", "src/audioClips/Mystery.wav", "src/audioClips/Space Walk.wav"};
     private int score = 0, enemyScore= 0;
     //endregion
@@ -60,6 +59,7 @@ public class UI extends JDialog {
             scoreLbl.setFont(customFont25);
             enemyScoreLbl.setFont(customFont25);
             pswLbl.setFont(customFont35);
+            privatePlayButton.setFont(customFont35);
         }catch (FontFormatException | IOException e) {
             e.printStackTrace();
             gameTitle.setText("No se pudo cargar la fuente.");
@@ -116,9 +116,18 @@ public class UI extends JDialog {
 
             }
         });
-        exitButton.addActionListener(new ActionListener() {
+        privatePlayButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                sfx.playMusic("src/audioClips/sfx/Click2.wav");
+                playMenuPane.setVisible(false);
+                searchingPane.setVisible(true);
+                client = new Client(actualUI);
+                client.start();
+                try {
+                    client.setGamePsw(Integer.parseInt(pswTxtField.getText()));
+                }catch (NumberFormatException e1) {
+                    client.setGamePsw(0);
+                }
             }
         });
         publicGameButton.addActionListener(new ActionListener() {
@@ -138,8 +147,14 @@ public class UI extends JDialog {
                 client.start();
             }
         });
+        exitButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
         privateGameButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                sfx.playMusic("src/audioClips/sfx/Click2.wav");
                 playMenuSettingsPane.setVisible(false);
                 privateGamePane.setVisible(true);
 
@@ -147,14 +162,17 @@ public class UI extends JDialog {
         });
         backButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                sfx.playMusic("src/audioClips/sfx/Click2.wav");
                 playMenuPane.setVisible(false);
                 menuPane.setVisible(true);
             }
         });
         back2Button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                sfx.playMusic("src/audioClips/sfx/Click2.wav");
                 privateGamePane.setVisible(false);
                 playMenuSettingsPane.setVisible(true);
+                pswTxtField.setText("");
             }
         });
 
@@ -306,7 +324,7 @@ public class UI extends JDialog {
             enemyScoreLbl.setText(enemyScore+" :Puntaje Enemigo");
         }
     }
-
+    //region cleanGamepPane
     public void cleanVeredictPane(){
         resultadoRondaLbl.setText("");
         eleccionActualLbl.setText("");
@@ -324,6 +342,7 @@ public class UI extends JDialog {
         enemigoPapelButton.setVisible(false);
         enemigoTijeraButton.setVisible(false);
     }
+    //endregion
     public static void main(String[] args){
 
         UI dialog = new UI();
@@ -349,6 +368,6 @@ public class UI extends JDialog {
         enemigoPapelButton = new RoundedButton("",30);
         enemigoTijeraButton = new RoundedButton("",30);
         loadingPane = new LoadingCircle();
-
+        privatePlayButton = new RoundedButton("",30);
     }
 }
