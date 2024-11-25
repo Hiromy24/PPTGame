@@ -1,24 +1,29 @@
 import javax.sound.sampled.*;
-import java.io.File;
+import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Objects;
 
 public class MusicManager {
     private Clip clip;
     private FloatControl gainControl;
 
-    public void playMusic(String filepath){
-        playMusic(filepath,false);
+    public void playMusic(String resourcePath) {
+        playMusic(resourcePath, false);
     }
-    public void playMusic(String filepath, Boolean loop) {
-        playMusic(filepath, loop,"");
+
+    public void playMusic(String resourcePath, Boolean loop) {
+        playMusic(resourcePath, loop, "");
     }
-    public void playMusic(String filePath, Boolean loop, String effect) {
-        playMusic(filePath, loop, effect, 0);
+
+    public void playMusic(String resourcePath, Boolean loop, String effect) {
+        playMusic(resourcePath, loop, effect, 0);
     }
-    public void playMusic(String filePath, Boolean loop,String effect, int effectDelayMs) {
-        try {
-            File audioFile = new File(filePath);
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
+
+    public void playMusic(String resourcePath, Boolean loop, String effect, int effectDelayMs) {
+        try (InputStream audioSrc = getClass().getResourceAsStream(resourcePath);
+             InputStream bufferedIn = new BufferedInputStream(Objects.requireNonNull(audioSrc, "Resource not found: " + resourcePath))) {
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn);
 
             AudioFormat baseFormat = audioStream.getFormat();
 
@@ -36,11 +41,11 @@ public class MusicManager {
 
             clip = AudioSystem.getClip();
             clip.open(decodedAudioStream);
-            gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);;
-            if (effect.equals("fadeIn")){
+            gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            if (effect.equals("fadeIn")) {
                 fadeIn(effectDelayMs);
                 setVolume(-30.0f);
-            }else if (effect.equals("fadeOut")){
+            } else if (effect.equals("fadeOut")) {
                 fadeOut(effectDelayMs);
             }
             if (loop) {
@@ -57,6 +62,7 @@ public class MusicManager {
             gainControl.setValue(value);
         }
     }
+
     private void fadeIn(int durationMs) {
         new Thread(() -> {
             try {
@@ -76,6 +82,7 @@ public class MusicManager {
             }
         }).start();
     }
+
     private void fadeOut(int durationMs) {
         new Thread(() -> {
             try {

@@ -6,8 +6,8 @@ import javax.swing.text.PlainDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 public class UI extends JDialog {
     //region ClassAttributes
@@ -28,7 +28,13 @@ public class UI extends JDialog {
     private JPanel enemyScorePane;
     private JLabel yourResult;
     private JLabel enemyResult;
-    private String[] music = {"src/audioClips/Darkness.wav","src/audioClips/Forest.wav", "src/audioClips/Happy.wav", "src/audioClips/Mystery.wav", "src/audioClips/Space Walk.wav"};
+    private String[] music = {
+            "/audioClips/Darkness.wav",
+            "/audioClips/Forest.wav",
+            "/audioClips/Happy.wav",
+            "/audioClips/Mystery.wav",
+            "/audioClips/Space Walk.wav"
+    };
     private int score = 0, enemyScore= 0;
     //endregion
     public UI() {
@@ -42,10 +48,10 @@ public class UI extends JDialog {
         getRootPane().setDefaultButton(playButton);
         //region FontsApplied
         try{
-            Font customFont50 = Font.createFont(Font.TRUETYPE_FONT, new File("src/Fonts/BlitzBold.otf"));
-            Font customFont35 = Font.createFont(Font.TRUETYPE_FONT, new File("src/Fonts/BlitzBold.otf"));
-            Font customFont25 = Font.createFont(Font.TRUETYPE_FONT, new File("src/Fonts/BlitzBold.otf"));
-            Font customFont80 = Font.createFont(Font.TRUETYPE_FONT, new File("src/Fonts/BlitzBold.otf"));
+            Font customFont50 = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(getClass().getResourceAsStream("/Fonts/BlitzBold.otf")));
+            Font customFont35 = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(getClass().getResourceAsStream("/Fonts/BlitzBold.otf")));
+            Font customFont25 = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(getClass().getResourceAsStream("/Fonts/BlitzBold.otf")));
+            Font customFont80 = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(getClass().getResourceAsStream("/Fonts/BlitzBold.otf")));
             customFont50 = customFont50.deriveFont(50f);
             customFont35 = customFont35.deriveFont(35f);
             customFont25 = customFont25.deriveFont(25f);
@@ -121,7 +127,7 @@ public class UI extends JDialog {
         //region menuPaneListeners
         playButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                sfx.playMusic("src/audioClips/sfx/Click2.wav");
+                sfx.playMusic("/audioClips/sfx/Click2.wav");
                 menuPane.setVisible(false);
                 playMenuPane.setVisible(true);
 
@@ -136,7 +142,7 @@ public class UI extends JDialog {
         //region playMenuPaneListeners
         publicGameButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                sfx.playMusic("src/audioClips/sfx/Click2.wav");
+                sfx.playMusic("/audioClips/sfx/Click2.wav");
 
 
                 playMenuPane.setVisible(false);
@@ -148,7 +154,7 @@ public class UI extends JDialog {
         });
         privateGameButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                sfx.playMusic("src/audioClips/sfx/Click2.wav");
+                sfx.playMusic("/audioClips/sfx/Click2.wav");
                 playMenuSettingsPane.setVisible(false);
                 privateGamePane.setVisible(true);
 
@@ -156,7 +162,7 @@ public class UI extends JDialog {
         });
         backButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                sfx.playMusic("src/audioClips/sfx/Click2.wav");
+                sfx.playMusic("/audioClips/sfx/Click2.wav");
                 playMenuPane.setVisible(false);
                 menuPane.setVisible(true);
             }
@@ -173,7 +179,7 @@ public class UI extends JDialog {
         });
         privatePlayButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                sfx.playMusic("src/audioClips/sfx/Click2.wav");
+                sfx.playMusic("/audioClips/sfx/Click2.wav");
                 playMenuPane.setVisible(false);
                 searchingPane.setVisible(true);
                 client = new Client(actualUI);
@@ -187,7 +193,7 @@ public class UI extends JDialog {
         });
         back2Button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                sfx.playMusic("src/audioClips/sfx/Click2.wav");
+                sfx.playMusic("/audioClips/sfx/Click2.wav");
                 privateGamePane.setVisible(false);
                 playMenuSettingsPane.setVisible(true);
                 pswTxtField.setText("");
@@ -198,7 +204,7 @@ public class UI extends JDialog {
         piedraButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                sfx.playMusic("src/audioClips/sfx/Click3.wav");
+                sfx.playMusic("/audioClips/sfx/Click3.wav");
                 tijeraButton.setVisible(false);
                 papelButton.setVisible(false);
                 client.setOption("Rock");
@@ -213,7 +219,7 @@ public class UI extends JDialog {
         papelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                sfx.playMusic("src/audioClips/sfx/Click3.wav");
+                sfx.playMusic("/audioClips/sfx/Click3.wav");
                 piedraButton.setVisible(false);
                 tijeraButton.setVisible(false);
                 client.setOption("Paper");
@@ -227,7 +233,7 @@ public class UI extends JDialog {
         tijeraButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                sfx.playMusic("src/audioClips/sfx/Click3.wav");
+                sfx.playMusic("/audioClips/sfx/Click3.wav");
                 piedraButton.setVisible(false);
                 papelButton.setVisible(false);
                 client.setOption("Scissors");
@@ -264,13 +270,13 @@ public class UI extends JDialog {
         switch (s) {
             case "Partida Encontrada!" -> {
                 musicManager.stopMusic();
-                sfx.playMusic("src/audioClips/sfx/Click1.wav", false);
+                sfx.playMusic("/audioClips/sfx/Click1.wav", false);
                 timer = new Timer(500, e -> {
                     searchingPane.setVisible(false);
                     gamePane.setVisible(true);
                     scoreLbl.setText("Tu Puntaje: 0");
                     enemyScoreLbl.setText("0 :Puntaje Enemigo");
-                    sfx.playMusic("src/audioClips/sfx/Switch.wav", false);
+                    sfx.playMusic("/audioClips/sfx/Switch.wav", false);
 
                 });
                 timer.setRepeats(false);
@@ -292,11 +298,11 @@ public class UI extends JDialog {
                     resultadoRondaLbl.setText("Es un empate!");
                 }else if (papelButton.isVisible()){
                     resultadoRondaLbl.setText("Ganaste la Ronda!");
-                    sfx.playMusic("src/audioClips/sfx/LevelUp.wav", false);
+                    sfx.playMusic("/audioClips/sfx/LevelUp.wav", false);
                     addPoints(1,scoreLbl);
                 }else {
                     resultadoRondaLbl.setText("Perdiste la Ronda!");
-                    sfx.playMusic("src/audioClips/sfx/RoundLose.wav", false);
+                    sfx.playMusic("/audioClips/sfx/RoundLose.wav", false);
                     addPoints(1,enemyScoreLbl);
                 }
             }
@@ -304,13 +310,13 @@ public class UI extends JDialog {
                 enemigoPapelButton.setVisible(true);
                 if (piedraButton.isVisible()){
                     resultadoRondaLbl.setText("Perdiste la Ronda!");
-                    sfx.playMusic("src/audioClips/sfx/RoundLose.wav", false);
+                    sfx.playMusic("/audioClips/sfx/RoundLose.wav", false);
                     addPoints(1,enemyScoreLbl);
                 }else if (papelButton.isVisible()){
                     resultadoRondaLbl.setText("Es un empate!");
                 }else {
                     resultadoRondaLbl.setText("Ganaste la Ronda!");
-                    sfx.playMusic("src/audioClips/sfx/LevelUp.wav", false);
+                    sfx.playMusic("/audioClips/sfx/LevelUp.wav", false);
                     addPoints(1,scoreLbl);
                 }
             }
@@ -318,11 +324,11 @@ public class UI extends JDialog {
                 enemigoTijeraButton.setVisible(true);
                 if (piedraButton.isVisible()){
                     resultadoRondaLbl.setText("Ganaste la Ronda!");
-                    sfx.playMusic("src/audioClips/sfx/LevelUp.wav", false);
+                    sfx.playMusic("/audioClips/sfx/LevelUp.wav", false);
                     addPoints(1,scoreLbl);
                 }else if (papelButton.isVisible()){
                     resultadoRondaLbl.setText("Perdiste la Ronda!");
-                    sfx.playMusic("src/audioClips/sfx/RoundLose.wav", false);
+                    sfx.playMusic("/audioClips/sfx/RoundLose.wav", false);
                     addPoints(1,enemyScoreLbl);
                 }else {
                     resultadoRondaLbl.setText("Es un empate!");
