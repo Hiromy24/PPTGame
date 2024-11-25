@@ -85,17 +85,17 @@ public class UI extends JDialog {
         exitButton.setSize(300,150);
 
         //region RockPaperScissorsButtons
-        ImageIcon iconRock = new ImageIcon("src/img/Rock.png");
+        ImageIcon iconRock = new ImageIcon(Objects.requireNonNull(getClass().getResource("/img/Rock.png")));
         Image imgRock = iconRock.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
         piedraButton.setIcon(new ImageIcon(imgRock));
         enemigoPiedraButton.setIcon(new ImageIcon(imgRock));
 
-        ImageIcon iconTijera = new ImageIcon("src/img/Scissors.png");
+        ImageIcon iconTijera = new ImageIcon(Objects.requireNonNull(getClass().getResource("/img/Scissors.png")));
         Image imgTijera = iconTijera.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
         tijeraButton.setIcon(new ImageIcon(imgTijera));
         enemigoTijeraButton.setIcon(new ImageIcon(imgTijera));
 
-        ImageIcon iconPapel = new ImageIcon("src/img/Paper.png");
+        ImageIcon iconPapel = new ImageIcon(Objects.requireNonNull(getClass().getResource("/img/Paper.png")));
         Image imgPapel = iconPapel.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
         papelButton.setIcon(new ImageIcon(imgPapel));
         enemigoPapelButton.setIcon(new ImageIcon(imgPapel));
