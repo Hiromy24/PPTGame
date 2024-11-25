@@ -298,7 +298,7 @@ public class UI extends JDialog {
                     resultadoRondaLbl.setText("Es un empate!");
                 }else if (papelButton.isVisible()){
                     resultadoRondaLbl.setText("Ganaste la Ronda!");
-                    sfx.playMusic("/audioClips/sfx/LevelUp.wav", false);
+                    sfx.playMusic("/audioClips/sfx/LevelUP.wav", false);
                     addPoints(1,scoreLbl);
                 }else {
                     resultadoRondaLbl.setText("Perdiste la Ronda!");
@@ -316,7 +316,7 @@ public class UI extends JDialog {
                     resultadoRondaLbl.setText("Es un empate!");
                 }else {
                     resultadoRondaLbl.setText("Ganaste la Ronda!");
-                    sfx.playMusic("/audioClips/sfx/LevelUp.wav", false);
+                    sfx.playMusic("/audioClips/sfx/LevelUP.wav", false);
                     addPoints(1,scoreLbl);
                 }
             }
@@ -324,7 +324,7 @@ public class UI extends JDialog {
                 enemigoTijeraButton.setVisible(true);
                 if (piedraButton.isVisible()){
                     resultadoRondaLbl.setText("Ganaste la Ronda!");
-                    sfx.playMusic("/audioClips/sfx/LevelUp.wav", false);
+                    sfx.playMusic("/audioClips/sfx/LevelUP.wav", false);
                     addPoints(1,scoreLbl);
                 }else if (papelButton.isVisible()){
                     resultadoRondaLbl.setText("Perdiste la Ronda!");
