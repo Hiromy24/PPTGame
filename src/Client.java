@@ -6,7 +6,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 
 public class Client extends Thread {
-    public static final String IP_SERVER = "localhost";
+    public static final String IP_SERVER = "52.47.208.71";
     public static final int PUERTO = 2024;
     private final UI userUI;
     private PrintWriter output;
