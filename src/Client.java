@@ -11,10 +11,9 @@ public class Client extends Thread {
     private final UI userUI;
     private PrintWriter output;
     private String option;
-    private boolean is_finished = false;
+    private boolean is_finished = false, createGame = true;
     private int win = 0, lose = 0;
-    private int gamePsw = 0;
-
+    private int gamePsw = 20;
     public Client(UI actualUI) {
         userUI = actualUI;
     }
@@ -34,6 +33,7 @@ public class Client extends Thread {
             BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
             output = new PrintWriter(socket.getOutputStream(), true);
             System.out.println("CLIENT: Waiting response from server...");
+            output.println(gamePsw);
 
             userUI.UpdateSearching(br.readLine());
             while (!is_finished && win < 3 && lose < 3) {
@@ -86,7 +86,4 @@ public class Client extends Thread {
         }
     }
 
-    public void setGamePsw(int gamePsw) {
-        this.gamePsw = gamePsw;
-    }
 }
