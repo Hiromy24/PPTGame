@@ -82,17 +82,17 @@ public class UI extends JFrame {
         exitButton.setSize(300,150);
 
         //region RockPaperScissorsButtons
-        ImageIcon iconRock = new ImageIcon("src/img/Rock.png");
+        ImageIcon iconRock = new ImageIcon(Objects.requireNonNull(getClass().getResource("/img/Rock.png")));
         Image imgRock = iconRock.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
         piedraButton.setIcon(new ImageIcon(imgRock));
         enemigoPiedraButton.setIcon(new ImageIcon(imgRock));
 
-        ImageIcon iconTijera = new ImageIcon("src/img/Scissors.png");
+        ImageIcon iconTijera = new ImageIcon(Objects.requireNonNull(getClass().getResource("/img/Scissors.png")));
         Image imgTijera = iconTijera.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
         tijeraButton.setIcon(new ImageIcon(imgTijera));
         enemigoTijeraButton.setIcon(new ImageIcon(imgTijera));
 
-        ImageIcon iconPapel = new ImageIcon("src/img/Paper.png");
+        ImageIcon iconPapel = new ImageIcon(Objects.requireNonNull(getClass().getResource("/img/Paper.png")));
         Image imgPapel = iconPapel.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
         papelButton.setIcon(new ImageIcon(imgPapel));
         enemigoPapelButton.setIcon(new ImageIcon(imgPapel));
@@ -295,7 +295,7 @@ public class UI extends JFrame {
                     resultadoRondaLbl.setText("Es un empate!");
                 }else if (papelButton.isVisible()){
                     resultadoRondaLbl.setText("Ganaste la Ronda!");
-                    sfx.playMusic("/audioClips/sfx/LevelUp.wav", false);
+                    sfx.playMusic("/audioClips/sfx/LevelUP.wav", false);
                     addPoints(1,scoreLbl);
                 }else {
                     resultadoRondaLbl.setText("Perdiste la Ronda!");
@@ -313,7 +313,7 @@ public class UI extends JFrame {
                     resultadoRondaLbl.setText("Es un empate!");
                 }else {
                     resultadoRondaLbl.setText("Ganaste la Ronda!");
-                    sfx.playMusic("/audioClips/sfx/LevelUp.wav", false);
+                    sfx.playMusic("/audioClips/sfx/LevelUP.wav", false);
                     addPoints(1,scoreLbl);
                 }
             }
@@ -321,7 +321,7 @@ public class UI extends JFrame {
                 enemigoTijeraButton.setVisible(true);
                 if (piedraButton.isVisible()){
                     resultadoRondaLbl.setText("Ganaste la Ronda!");
-                    sfx.playMusic("/audioClips/sfx/LevelUp.wav", false);
+                    sfx.playMusic("/audioClips/sfx/LevelUP.wav", false);
                     addPoints(1,scoreLbl);
                 }else if (papelButton.isVisible()){
                     resultadoRondaLbl.setText("Perdiste la Ronda!");
