@@ -55,6 +55,7 @@ public class Client extends Thread {
                 switch (is_win) {
                     case "WIN" -> {
                         System.out.println("CLIENT: YOU WIN!");
+                        System.out.println("Has ganado");
                         win++;
                     }
                     case "LOSE" -> {
