@@ -127,7 +127,7 @@ public class UI extends JFrame {
                 sfx.playMusic("/audioClips/sfx/Click2.wav");
                 menuPane.setVisible(false);
                 playMenuPane.setVisible(true);
-
+                resetScores();
             }
         });
         exitButton.addActionListener(new ActionListener() {
@@ -362,6 +362,13 @@ public class UI extends JFrame {
             enemyScore+= points;
             enemyScoreLbl.setText(enemyScore+" :Puntaje Enemigo");
         }
+    }
+
+    public void resetScores() {
+        score = 0;
+        enemyScore = 0;
+        scoreLbl.setText("Tu Puntaje: 0");
+        enemyScoreLbl.setText("0 :Puntaje Enemigo");
     }
 
     //region cleanGamepPane
